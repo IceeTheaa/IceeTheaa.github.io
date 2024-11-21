@@ -101,3 +101,28 @@
                 </div>
             </div>
         </div>
+
+        <!-- Checkout Section -->
+        <div class="checkout">
+            <button class="btn-checkout" onclick="showCheckoutPopup()">Checkout</button>
+            <div id="total-container">Total: Rp0</div>
+        </div>
+
+        <!-- Checkout Popup -->
+        <div id="checkout-popup" class="popup">
+            <div class="popup-content">
+                <h3>Checkout</h3>
+                <p id="popup-total">Total: Rp0</p>
+                <button onclick="closeCheckoutPopup()" class="btn-close">Tutup</button>
+                <button class="btn-submit">Lanjutkan Pembayaran</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Ice Tea Delight. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
