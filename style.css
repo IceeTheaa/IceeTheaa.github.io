@@ -45,7 +45,7 @@ header .nav-links a.active {
 /* Hero Section */
 .hero {
     text-align: center;
-    background: url('gambar/icetea.jpg') no-repeat center center;
+    background: url('img/icetea.jpg') no-repeat center center;
     color: white;
     padding: 11rem 1rem;
     background-size: auto;
