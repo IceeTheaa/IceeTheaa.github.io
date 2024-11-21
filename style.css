@@ -41,6 +41,7 @@ header .nav-links a:hover,
 header .nav-links a.active {
     color: #ffdd99;
 }
+
 /* Hero Section */
 .hero {
     text-align: center;
@@ -69,6 +70,7 @@ header .nav-links a.active {
     opacity: 0;
     animation: moveUp 2s ease-in-out 2s forwards; /* Button moving up */
 }
+
 /* Zoom in and out animation */
 @keyframes zoomInOut {
     0% {
@@ -99,4 +101,58 @@ footer {
     padding: 13px;
     background-color: #333;
     color: white;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header .logo {
+        margin-bottom: 10px;
+    }
+
+    header .nav-links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .hero {
+        padding: 5rem 1rem;
+        background-size: cover; /* Menjaga agar gambar tetap menyesuaikan layar */
+        background-position: top center; /* Fokus pada bagian atas gambar */
+        background-attachment: scroll; /* Menghindari efek fixed yang mengganggu di layar kecil */
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero .btn {
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header .logo {
+        font-size: 20px;
+    }
+
+    header .nav-links a {
+        font-size: 14px;
+    }
+
+    .hero {
+        padding: 4rem 1rem;
+        background-size: contain; /* Fokus pada gambar agar tidak terpotong */
+        background-position: center center; /* Memastikan gambar selalu di tengah */
+        background-attachment: scroll; /* Memastikan tidak ada efek parallax */
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
 }
