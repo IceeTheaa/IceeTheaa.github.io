@@ -47,8 +47,8 @@ header .nav-links a.active {
     text-align: center;
     background: url('gambar/icetea.jpg') no-repeat center center;
     color: white;
-    padding: 10.6rem 1rem;
-    background-size: cover;
+    padding: 11rem 1rem;
+    background-size: auto;
     background-position: center center;
     background-attachment: fixed;
     animation: zoomInOut 10s ease-in-out infinite; /* Zoom in and out animation */
@@ -74,13 +74,13 @@ header .nav-links a.active {
 /* Zoom in and out animation */
 @keyframes zoomInOut {
     0% {
-        background-size: 100%;
+        background-size: 150%;
     }
     50% {
-        background-size: 120%; /* Zoom in effect */
+        background-size: 130%; /* Zoom in effect */
     }
     100% {
-        background-size: 100%; /* Zoom out back to normal */
+        background-size: 150%; /* Zoom out back to normal */
     }
 }
 
@@ -126,10 +126,10 @@ footer {
 /* Mobile (max-width: 480px) */
 @media (max-width: 480px) {
     .hero {
-        background-size: contain; /* Menampilkan seluruh gambar tanpa terpotong */
+        background-size: auto; /* Menampilkan seluruh gambar tanpa terpotong */
         background-position: center; /* Memusatkan gambar */
         background-attachment: scroll; /* Memastikan latar mengikuti scroll */
-        padding: 6rem 1rem; /* Mengurangi padding lebih lanjut */
+        padding: 8rem 1rem; /* Mengurangi padding lebih lanjut */
     }
 
     .hero h1 {
