@@ -69,3 +69,34 @@ header .nav-links a.active {
     opacity: 0;
     animation: moveUp 2s ease-in-out 2s forwards; /* Button moving up */
 }
+/* Zoom in and out animation */
+@keyframes zoomInOut {
+    0% {
+        background-size: 100%;
+    }
+    50% {
+        background-size: 120%; /* Zoom in effect */
+    }
+    100% {
+        background-size: 100%; /* Zoom out back to normal */
+    }
+}
+
+/* Moving effect for hero h1 */
+@keyframes moveUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 13px;
+    background-color: #333;
+    color: white;
+}
