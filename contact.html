@@ -41,14 +41,30 @@
         </form>
     </section>
     
-
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            // Ambil data dari formulir
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const topic = document.getElementById('topic').value;
+    
+            // Format pesan untuk WhatsApp
+            const whatsappNumber = '6282122339125'; // Ganti dengan nomor WhatsApp tujuan (format internasional tanpa tanda +)
+            const text = `Halo, saya ${name}.%0A%0AEmail: ${email}%0ATopik: ${topic}%0A%0APesan:%0A${message}`;
+    
+            // Buka WhatsApp dengan pesan yang telah diformat
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
 
 
     <footer>
         <p>© 2024 Ice Tea Delight. Semua Hak Dilindungi.</p>
     </footer>
-
-    <script src="js/scriptcontact.js"></script>
 </body>
 </html>
 
