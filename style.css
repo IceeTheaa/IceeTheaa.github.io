@@ -122,9 +122,6 @@ footer {
 
     .hero {
         padding: 5rem 1rem;
-        background-size: cover; /* Menjaga agar gambar tetap menyesuaikan layar */
-        background-position: top center; /* Fokus pada bagian atas gambar */
-        background-attachment: scroll; /* Menghindari efek fixed yang mengganggu di layar kecil */
     }
 
     .hero h1 {
@@ -143,13 +140,6 @@ footer {
 
     header .nav-links a {
         font-size: 14px;
-    }
-
-    .hero {
-        padding: 4rem 1rem;
-        background-size: contain; /* Fokus pada gambar agar tidak terpotong */
-        background-position: center center; /* Memastikan gambar selalu di tengah */
-        background-attachment: scroll; /* Memastikan tidak ada efek parallax */
     }
 
     .hero h1 {
