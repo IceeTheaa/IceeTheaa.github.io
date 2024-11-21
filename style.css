@@ -41,11 +41,113 @@ header .nav-links a:hover,
 header .nav-links a.active {
     color: #ffdd99;
 }
-
 /* Hero Section */
 .hero {
     text-align: center;
     background: url('gambar/icetea.jpg') no-repeat center center/cover;
+    color: white;
+    padding: 10.6rem 1rem;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    animation: zoomInOut 10s ease-in-out infinite; /* Zoom in and out animation */
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    opacity: 0;
+    animation: moveUp 2s ease-in-out 1s forwards; /* Heading moving up */
+}
+
+.hero .btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #ff9933;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    opacity: 0;
+    animation: moveUp 2s ease-in-out 2s forwards; /* Button moving up */
+}
+/* Zoom in and out animation */
+@keyframes zoomInOut {
+    0% {
+        background-size: 100%;
+    }
+    50% {
+        background-size: 120%; /* Zoom in effect */
+    }
+    100% {
+        background-size: 100%; /* Zoom out back to normal */
+    }
+}
+
+/* Moving effect for hero h1 */
+@keyframes moveUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 13px;
+    background-color: #333;
+    color: white;
+}
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+header {
+    background-color: #ff9933;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+header .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+header .nav-links a:hover,
+header .nav-links a.active {
+    color: #ffdd99;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    background: url('gambar/icetea.jpg') no-repeat center center;
     color: white;
     padding: 10.6rem 1rem;
     background-size: cover;
@@ -104,45 +206,40 @@ footer {
 }
 
 /* Responsiveness */
+
+/* Tablet (max-width: 768px) */
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    header .logo {
-        margin-bottom: 10px;
-    }
-
-    header .nav-links {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-
     .hero {
-        padding: 5rem 1rem;
+        background-size: cover; /* Memastikan gambar tetap terlihat penuh */
+        background-position: top center; /* Fokus pada bagian atas gambar */
+        background-attachment: scroll; /* Menonaktifkan efek fixed untuk kenyamanan */
+        padding: 8rem 1rem; /* Mengurangi padding untuk layar kecil */
     }
 
     .hero h1 {
-        font-size: 1.8rem;
+        font-size: 2rem; /* Mengurangi ukuran teks */
     }
 
     .hero .btn {
-        padding: 0.4rem 0.8rem;
+        padding: 0.4rem 0.8rem; /* Menyesuaikan ukuran tombol */
     }
 }
 
+/* Mobile (max-width: 480px) */
 @media (max-width: 480px) {
-    header .logo {
-        font-size: 20px;
-    }
-
-    header .nav-links a {
-        font-size: 14px;
+    .hero {
+        background-size: contain; /* Menampilkan seluruh gambar tanpa terpotong */
+        background-position: center; /* Memusatkan gambar */
+        background-attachment: scroll; /* Memastikan latar mengikuti scroll */
+        padding: 6rem 1rem; /* Mengurangi padding lebih lanjut */
     }
 
     .hero h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem; /* Ukuran teks lebih kecil */
+    }
+
+    .hero .btn {
+        font-size: 0.9rem; /* Menyesuaikan ukuran font tombol */
+        padding: 0.3rem 0.7rem;
     }
 }
