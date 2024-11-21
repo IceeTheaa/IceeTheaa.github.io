@@ -62,3 +62,14 @@ function showCheckoutPopup() {
     updateTotal();
     document.getElementById('checkout-popup').style.display = 'flex';
 }
+
+// Close checkout pop-up
+function closeCheckoutPopup() {
+    document.getElementById('checkout-popup').style.display = 'none';
+}
+
+// Fungsi untuk mengirim pesanan (misalnya hanya menutup pop-up untuk demonstrasi)
+function submitOrder() {
+    alert('Pesanan Anda telah dikirim!');
+    closeCheckoutPopup(); 
+}
