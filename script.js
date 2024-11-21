@@ -24,3 +24,16 @@ const updateQuantity = () => {
         });
     });
 };
+
+// Update total harga
+function updateTotal() {
+    let total = 0;
+    const items = document.querySelectorAll('.menu-item');
+    items.forEach(item => {
+        const quantity = parseInt(item.querySelector('.quantity').textContent);
+        const price = parseInt(item.querySelector('span').textContent.replace('Rp', '').replace('.', ''));
+        total += quantity * price;
+    });
+    document.getElementById('total-container').textContent = `Total: Rp${total.toLocaleString()}`;
+    document.getElementById('popup-total').textContent = `Total: Rp${total.toLocaleString()}`;
+}
