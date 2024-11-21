@@ -112,11 +112,62 @@
                 <h3>Checkout</h3>
                 <p id="popup-total">Total: Rp0</p>
                 <button onclick="closeCheckoutPopup()" class="btn-close">Tutup</button>
-                <button class="btn-submit">Lanjutkan Pembayaran</button>
+                <button class="btn-submit" onclick="showQRIS()">Lanjutkan Pembayaran</button>
+                
+                <!-- QRIS Image (hidden initially) -->
+                <div id="qris-container" style="display: none;">
+                    <h4>Scan QRIS to Pay</h4>
+                    <img id="qris-image" src="path-to-your-qris-image.png" alt="QRIS Payment">
+                    <button class="btn-pay" onclick="processPayment()">Bayar</button>
+                </div>
             </div>
         </div>
-    </section>
-
+        
+        <script>
+            // Example cart data
+            let cartItems = [
+                { name: "Item 1", price: 50000, quantity: 2 },
+                { name: "Item 2", price: 30000, quantity: 1 }
+            ];
+        
+            // Function to update the total price
+            function updateTotal() {
+                let total = 0;
+                cartItems.forEach(item => {
+                    total += item.price * item.quantity;
+                });
+                document.getElementById('popup-total').innerText = 'Total: Rp' + total.toLocaleString();
+            }
+        
+            // Function to show QRIS after clicking 'Lanjutkan Pembayaran'
+            function showQRIS() {
+                // Hide the "Lanjutkan Pembayaran" button and show QRIS image
+                document.querySelector('.btn-submit').style.display = 'none';
+                document.getElementById('qris-container').style.display = 'block';
+            }
+        
+            // Function to process payment (reduce the cart items and close the popup)
+            function processPayment() {
+                // For now, assume the payment is successful, so we'll reduce the cart items
+                cartItems = []; // Empty the cart
+        
+                // Update the total and close the checkout popup
+                updateTotal();
+                closeCheckoutPopup();
+        
+                // Optionally, show a success message
+                alert("Pembayaran berhasil! Terima kasih atas pembelian Anda.");
+            }
+        
+            // Function to close the popup
+            function closeCheckoutPopup() {
+                document.getElementById('checkout-popup').style.display = 'none';
+            }
+        
+            // Initialize the total on page load
+            updateTotal();
+        </script>
+        
     <footer>
         <p>© 2024 Ice Tea Delight. Semua Hak Dilindungi.</p>
     </footer>
