@@ -104,55 +104,72 @@ footer {
 }
 
 /* Responsiveness */
+
+/* Tablet (max-width: 768px) */
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
     header .logo {
-        margin-bottom: 10px;
+        font-size: 1.5rem;
     }
 
-    header .nav-links {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
+    nav ul li {
+        margin: 0 10px;
     }
 
-    .hero {
-        padding: 5rem 1rem;
-        background-size: cover; /* Menjaga agar gambar tetap menyesuaikan layar */
-        background-position: top center; /* Fokus pada bagian atas gambar */
-        background-attachment: scroll; /* Menghindari efek fixed yang mengganggu di layar kecil */
+    nav ul li a {
+        font-size: 1rem;
     }
 
-    .hero h1 {
-        font-size: 1.8rem;
+    #menu {
+        padding: 30px;
     }
 
-    .hero .btn {
-        padding: 0.4rem 0.8rem;
+    h2 {
+        font-size: 2rem;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 kolom untuk tablet */
+    }
+
+    .menu-item {
+        padding: 15px;
     }
 }
 
+/* Mobile (max-width: 480px) */
 @media (max-width: 480px) {
-    header .logo {
-        font-size: 20px;
+    nav ul {
+        text-align: center;
     }
 
-    header .nav-links a {
-        font-size: 14px;
+    nav ul li {
+        display: block;
+        margin: 10px 0;
     }
 
-    .hero {
-        padding: 4rem 1rem;
-        background-size: contain; /* Fokus pada gambar agar tidak terpotong */
-        background-position: center center; /* Memastikan gambar selalu di tengah */
-        background-attachment: scroll; /* Memastikan tidak ada efek parallax */
+    nav ul li a {
+        font-size: 0.9rem;
     }
 
-    .hero h1 {
-        font-size: 1.5rem;
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr; /* 1 kolom untuk ponsel */
+        gap: 10px;
+    }
+
+    .menu-item {
+        padding: 10px;
+    }
+
+    .menu-img {
+        height: 150px; /* Mengurangi tinggi gambar */
+    }
+
+    .btn-checkout {
+        font-size: 1rem;
+        padding: 8px 16px;
     }
 }
