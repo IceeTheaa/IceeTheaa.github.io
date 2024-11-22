@@ -2,8 +2,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+    margin: auto;
+    padding: auto;
 }
 
 header {
@@ -40,11 +40,11 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 #menu {
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0px;
+    max-width: auto;
+    margin: 0px;
     background-color: white;
-    border-radius: 10px;
+    border-radius: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -230,7 +230,7 @@ footer {
     }
 
     .menu-img {
-        height: 150px; /* Mengurangi tinggi gambar */
+        height: 200px; /* Mengurangi tinggi gambar */
     }
 
     .btn-checkout {
