@@ -73,3 +73,16 @@ function submitOrder() {
     alert('Pesanan Anda telah dikirim!');
     closeCheckoutPopup(); 
 }
+
+function updatePrice(selectElement) {
+    const priceElement = selectElement.parentElement.querySelector('.price');
+    const selectedSize = selectElement.value;
+    const smallPrice = parseInt(priceElement.getAttribute('data-small'));
+    const mediumPrice = parseInt(priceElement.getAttribute('data-medium'));
+
+    if (selectedSize === 'small') {
+        priceElement.innerText = 'Rp' + smallPrice.toLocaleString();
+    } else {
+        priceElement.innerText = 'Rp' + mediumPrice.toLocaleString();
+    }
+}

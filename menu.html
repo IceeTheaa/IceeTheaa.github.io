@@ -26,7 +26,11 @@
                 <img src="img/lemon klasik.jpg" alt="Ice Tea Lemon Klasik" class="menu-img">
                 <h3>Ice Tea Lemon Klasik</h3>
                 <p>Campuran teh hitam segar dengan lemon, menyegarkan dan penuh rasa.</p>
-                <span>Rp35.000</span>
+                <span class="price" data-small="5000" data-medium="8000">Rp5.000</span>
+                <select class="cup-size" onchange="updatePrice(this)">
+                    <option value="small">Kecil</option>
+                    <option value="medium">Sedang</option>
+                </select>
                 <div class="quantity-control">
                     <button class="btn-minus">-</button>
                     <span class="quantity">0</span>
@@ -34,12 +38,16 @@
                 </div>
             </div>
 
-            <!-- Menu Item 2 -->
-            <div class="menu-item">
-                <img src="img/peachtea.jpg" alt="Ice Tea Peach" class="menu-img">
-                <h3>Ice Tea Peach</h3>
-                <p>Rasa manis dan segar buah persik yang cocok untuk segala suasana.</p>
-                <span>Rp40.000</span>
+                   <!-- Menu Item 2 -->
+        <div class="menu-item">
+            <img src="img/peachtea.jpg" alt="Ice Tea Peach" class="menu-img">
+            <h3>Ice Tea Peach</h3>
+            <p>Rasa manis dan segar buah persik yang cocok untuk segala suasana.</p>
+            <span class="price" data-small="5000" data-medium="8000">Rp5.000</span>
+                <select class="cup-size" onchange="updatePrice(this)">
+                    <option value="small">Kecil</option>
+                    <option value="medium">Sedang</option>
+                </select>
                 <div class="quantity-control">
                     <button class="btn-minus">-</button>
                     <span class="quantity">0</span>
@@ -47,58 +55,74 @@
                 </div>
             </div>
 
-             <!-- Menu Item 3 -->
-             <div class="menu-item">
-                <img src="img/mojito.jpg" alt="Mojito Teh Hijau" class="menu-img">
-                <h3>Mojito Teh Hijau</h3>
-                <p>Kombinasi teh hijau dengan sensasi mint yang menyegarkan.</p>
-                <span>Rp45.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
-                </div>
-            </div>
-
-            <!-- Menu Item 4 -->
-            <div class="menu-item">
-                <img src="img/berrytea.jpg" alt="Berry Ice Tea" class="menu-img">
-                <h3>Berry Ice Tea</h3>
-                <p>Teh segar dengan campuran buah beri yang kaya akan rasa.</p>
-                <span>Rp50.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
-                </div>
-            </div>
-
-            <!-- Menu Item 5 -->
-            <div class="menu-item">
-                <img src="img/matcha tea.jpg" alt="Matcha Ice Tea" class="menu-img">
-                <h3>Matcha Ice Tea</h3>
-                <p>Rasa khas teh hijau Jepang dengan susu segar yang menenangkan.</p>
-                <span>Rp55.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
-                </div>
-            </div>
-
-            <!-- Menu Item 6 -->
-            <div class="menu-item">
-                <img src="img/tropicaltea.jpg" alt="Tropical Ice Tea" class="menu-img">
-                <h3>Tropical Ice Tea</h3>
-                <p>Campuran teh segar dengan rasa tropis nanas dan kelapa.</p>
-                <span>Rp45.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
-                </div>
+        <!-- Menu Item 3 -->
+        <div class="menu-item">
+            <img src="img/mojito.jpg" alt="Mojito Teh Hijau" class="menu-img">
+            <h3>Mojito Teh Hijau</h3>
+            <p>Kombinasi teh hijau dengan sensasi mint yang menyegarkan.</p>
+            <span class="price" data-small="45000" data-medium="45000">Rp45.000</span>
+            <select class="cup-size" onchange="updatePrice(this)">
+                <option value="small">Kecil</option>
+                <option value="medium">Sedang</option>
+            </select>
+            <div class="quantity-control">
+                <button class="btn-minus">-</button>
+                <span class="quantity">0</span>
+                <button class="btn-plus">+</button>
             </div>
         </div>
+
+        <!-- Menu Item 4 -->
+        <div class="menu-item">
+            <img src="img/berrytea.jpg" alt="Berry Ice Tea" class="menu-img">
+            <h3>Berry Ice Tea</h3>
+            <p>Teh segar dengan campuran buah beri yang kaya akan rasa.</p>
+            <span class="price" data-small="50000" data-medium="50000">Rp50.000</span>
+            <select class="cup-size" onchange="updatePrice(this)">
+                <option value="small">Kecil</option>
+                <option value="medium">Sedang</option>
+            </select>
+            <div class="quantity-control">
+                <button class="btn-minus">-</button>
+                <span class="quantity">0</span>
+                <button class="btn-plus">+</button>
+            </div>
+        </div>
+
+        <!-- Menu Item 5 -->
+        <div class="menu-item">
+            <img src="img/matcha tea.jpg" alt="Matcha Ice Tea" class="menu-img">
+            <h3>Matcha Ice Tea</h3>
+            <p>Rasa khas teh hijau Jepang dengan susu segar yang menenangkan.</p>
+            <span class="price" data-small="55000" data-medium="55000">Rp55.000</span>
+            <select class="cup-size" onchange="updatePrice(this)">
+                <option value="small">Kecil</option>
+                <option value="medium">Sedang</option>
+            </select>
+            <div class="quantity-control">
+                <button class="btn-minus">-</button>
+ <span class="quantity">0</span>
+                <button class="btn-plus">+</button>
+            </div>
+        </div>
+
+        <!-- Menu Item 6 -->
+        <div class="menu-item">
+            <img src="img/tropicaltea.jpg" alt="Tropical Ice Tea" class="menu-img">
+            <h3>Tropical Ice Tea</h3>
+            <p>Campuran teh segar dengan rasa tropis nanas dan kelapa.</p>
+            <span class="price" data-small="5.000" data-medium="9.000">Rp5.000</span>
+            <select class="cup-size" onchange="updatePrice(this)">
+                <option value="small">Kecil</option>
+                <option value="medium">Sedang</option>
+            </select>
+            <div class="quantity-control">
+                <button class="btn-minus">-</button>
+                <span class="quantity">0</span>
+                <button class="btn-plus">+</button>
+            </div>
+        </div>
+    </div>
 
         <!-- Checkout Section -->
         <div class="checkout">
