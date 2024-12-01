@@ -60,7 +60,7 @@ function completeCheckout() {
     const message = `Pesanan Baru: \nItems: ${items} \nTotal: ${total}`;
 
     // WhatsApp link with pre-filled message
-    const phoneNumber = '082118937714'; // Replace with admin's phone number
+    const phoneNumber = '+6282118937714'; // Replace with admin's phone number
     const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     // Redirect to WhatsApp
