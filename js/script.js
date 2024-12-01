@@ -52,14 +52,14 @@ function closeCheckoutPopup() {
 }
 
 function completeCheckout() {
-    // Gather the checkout details
-    const items = document.getElementById('popup-items').innerText; // Assuming you list items here
+    // Kumpulkan detail pembayaran
+    const items = document.getElementById('popup-items').innerText; 
     const total = document.getElementById('popup-total').innerText;
 
-    // Format the message to send to the admin
+    // Format pesan untuk dikirim ke admin
     const message = `Pesanan Baru: \nItems: ${items} \nTotal: ${total}`;
 
-    // WhatsApp link with pre-filled message
+    // Tautan WhatsApp dengan pesan yang sudah diisi sebelumnya
     const phoneNumber = '+6282118937714'; // Replace with admin's phone number
     const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
