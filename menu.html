@@ -26,7 +26,7 @@
                 <img src="img/lemon klasik.jpg" alt="Ice Tea Lemon Klasik" class="menu-img">
                 <h3>Ice Tea Lemon Klasik</h3>
                 <p>Campuran teh hitam segar dengan lemon, menyegarkan dan penuh rasa.</p>
-                <span class="price">Rp5.000</span>
+                <span class="price">Rp8.000</span>
                 <div class="quantity-control">
                     <button class="btn-minus">-</button>
                     <span class="quantity">0</span>
@@ -39,7 +39,7 @@
             <img src="img/peachtea.jpg" alt="Ice Tea Peach" class="menu-img">
             <h3>Ice Tea Peach</h3>
             <p>Rasa manis dan segar buah persik yang cocok untuk segala suasana.</p>
-            <span class="price">Rp5.000</span>
+            <span class="price">Rp8.000</span>
                 <div class="quantity-control">
                     <button class="btn-minus">-</button>
                     <span class="quantity">0</span>
@@ -52,7 +52,7 @@
             <img src="img/mojito.jpg" alt="Mojito Teh Hijau" class="menu-img">
             <h3>Mojito Teh Hijau</h3>
             <p>Kombinasi teh hijau dengan sensasi mint yang menyegarkan.</p>
-            <span class="price">Rp45.000</span>
+            <span class="price">Rp8.000</span>
             <div class="quantity-control">
                 <button class="btn-minus">-</button>
                 <span class="quantity">0</span>
@@ -65,7 +65,7 @@
             <img src="img/berrytea.jpg" alt="Berry Ice Tea" class="menu-img">
             <h3>Berry Ice Tea</h3>
             <p>Teh segar dengan campuran buah beri yang kaya akan rasa.</p>
-            <span class="price">Rp50.000</span>
+            <span class="price">Rp8.000</span>
             <div class="quantity-control">
                 <button class="btn-minus">-</button>
                 <span class="quantity">0</span>
@@ -78,7 +78,7 @@
             <img src="img/matcha tea.jpg" alt="Matcha Ice Tea" class="menu-img">
             <h3>Matcha Ice Tea</h3>
             <p>Rasa khas teh hijau Jepang dengan susu segar yang menenangkan.</p>
-            <span class="price" data-small="55000" data-medium="55000">Rp55.000</span>
+            <span class="price">Rp8.000</span>
             <div class="quantity-control">
                 <button class="btn-minus">-</button>
                 <span class="quantity">0</span>
@@ -91,7 +91,7 @@
             <img src="img/tropicaltea.jpg" alt="Tropical Ice Tea" class="menu-img">
             <h3>Tropical Ice Tea</h3>
             <p>Campuran teh segar dengan rasa tropis nanas dan kelapa.</p>
-            <span class="price">Rp5.000</span>
+            <span class="price">Rp8.000</span>
             <div class="quantity-control">
                 <button class="btn-minus">-</button>
                 <span class="quantity">0</span>
@@ -100,81 +100,23 @@
         </div>
     </div>
 
-        <!-- Checkout Section -->
-        <div class="checkout">
-            <button class="btn-checkout" onclick="showCheckoutPopup()">Checkout</button>
-            <div id="total-container">Total: Rp0</div>
+    <div class="checkout">
+        <button class="btn-checkout" onclick="showCheckoutPopup()">Checkout</button>
+        <div id="total-container">Total: Rp0</div>
+    </div>
+    
+    <!-- Checkout Popup -->
+    <div id="checkout-popup" class="popup">
+        <div class="popup-content">
+            <h3>Checkout</h3>
+            <div id="popup-items"></div> <!-- Daftar barang yang dipilih -->
+            <p id="popup-total">Total: Rp0</p>
+            <button onclick="completeCheckout()" class="btn-checkout">Complete Checkout</button>
+            <button onclick="closeCheckoutPopup()" class="btn-close">Tutup</button>
         </div>
+    </div>
+    
 
-        <!-- Checkout Popup -->
-        <div id="checkout-popup" class="popup">
-            <div class="popup-content">
-                <h3>Checkout</h3>
-                <p id="popup-total">Total: Rp0</p>
-                <button onclick="closeCheckoutPopup()" class="btn-close">Tutup</button>
-                <button class="btn-submit" onclick="showQRIS()">Lanjutkan Pembayaran</button>
-                
-                <!-- QRIS Image (hidden initially) -->
-                <div id="qris-container" style="display: none;">
-                    <h4>Scan QRIS to Pay</h4>
-                    <img id="qris-image" src="img/barcode.png" alt="QRIS Payment">
-                    <button class="btn-pay" onclick="processPayment()">Bayar</button>
-                </div>
-            </div>
-        </div>
-
-        <style>
-            #qris-image {
-                width: 300px;
-                height: auto;
-            }
-        </style>
-        
-        
-        <script>
-            // Example cart data
-            let cartItems = [
-                { name: "Item 1", price: 50000, quantity: 2 }
-            ];
-        
-            // Function to update the total price
-            function updateTotal() {
-                let total = 0;
-                cartItems.forEach(item => {
-                    total += item.price * item.quantity;
-                });
-                document.getElementById('popup-total').innerText = 'Total: Rp' + total.toLocaleString();
-            }
-        
-            // Function to show QRIS after clicking 'Lanjutkan Pembayaran'
-            function showQRIS() {
-                // Hide the "Lanjutkan Pembayaran" button and show QRIS image
-                document.querySelector('.btn-submit').style.display = 'none';
-                document.getElementById('qris-container').style.display = 'block';
-            }
-        
-            // Function to process payment (reduce the cart items and close the popup)
-            function processPayment() {
-                // For now, assume the payment is successful, so we'll reduce the cart items
-                cartItems = []; // Empty the cart
-        
-                // Update the total and close the checkout popup
-                updateTotal();
-                closeCheckoutPopup();
-        
-                // Optionally, show a success message
-                alert("Pembayaran berhasil! Terima kasih atas pembelian Anda.");
-            }
-        
-            // Function to close the popup
-            function closeCheckoutPopup() {
-                document.getElementById('checkout-popup').style.display = 'none';
-            }
-        
-            // Initialize the total on page load
-            updateTotal();
-        </script>
-        
     <footer>
         <p>2024 Indo Ice Tea. Semua Hak Dilindungi.</p>
     </footer>
