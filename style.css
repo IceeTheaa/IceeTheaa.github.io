@@ -74,13 +74,13 @@ header .nav-links a.active {
 /* Zoom in and out animation */
 @keyframes zoomInOut {
     0% {
-        background-size: 100%;
+        background-size: 180%;
     }
     50% {
         background-size: 150%; /* Zoom in effect */
     }
     100% {
-        background-size: 100%; /* Zoom out back to normal */
+        background-size: 180%; /* Zoom out back to normal */
     }
 }
 
@@ -145,7 +145,10 @@ footer {
 /* iPhone 8 Specific (375px width) */
 @media (max-width: 375px) {
     .hero {
-        padding: 5rem 1rem; /* Mengurangi padding lebih lanjut untuk layar kecil */
+        background-size: cover; /* Menampilkan seluruh gambar tanpa terpotong */
+        background-position: center; /* Memusatkan gambar */
+        background-attachment: scroll; /* Memastikan latar mengikuti scroll */
+        padding: 6rem 1rem; /* Mengurangi padding lebih lanjut untuk layar kecil */
     }
 
     .hero h1 {
