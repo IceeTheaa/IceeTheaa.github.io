@@ -74,13 +74,13 @@ header .nav-links a.active {
 /* Zoom in and out animation */
 @keyframes zoomInOut {
     0% {
-        background-size: 180%;
+        background-size: 100%;
     }
     50% {
         background-size: 150%; /* Zoom in effect */
     }
     100% {
-        background-size: 180%; /* Zoom out back to normal */
+        background-size: 100%; /* Zoom out back to normal */
     }
 }
 
@@ -126,18 +126,33 @@ footer {
 /* Mobile (max-width: 480px) */
 @media (max-width: 480px) {
     .hero {
-        background-size: 100%; /* Menampilkan seluruh gambar tanpa terpotong */
+        background-size: cover; /* Menampilkan seluruh gambar tanpa terpotong */
         background-position: center; /* Memusatkan gambar */
         background-attachment: scroll; /* Memastikan latar mengikuti scroll */
-        padding: 8rem 1rem; /* Mengurangi padding lebih lanjut */
+        padding: 6rem 1rem; /* Mengurangi padding lebih lanjut untuk kenyamanan */
     }
 
     .hero h1 {
-        font-size: 1.8rem; /* Ukuran teks lebih kecil */
+        font-size: 1.6rem; /* Ukuran teks lebih kecil untuk kenyamanan */
     }
 
     .hero .btn {
         font-size: 0.9rem; /* Menyesuaikan ukuran font tombol */
-        padding: 0.3rem 0.7rem;
+        padding: 0.3rem 0.7rem; /* Ukuran padding tombol */
+    }
+}
+
+/* iPhone 8 Specific (375px width) */
+@media (max-width: 375px) {
+    .hero {
+        padding: 5rem 1rem; /* Mengurangi padding lebih lanjut untuk layar kecil */
+    }
+
+    .hero h1 {
+        font-size: 1.5rem; /* Ukuran teks lebih kecil */
+    }
+
+    .hero .btn {
+        padding: 0.3rem 0.6rem; /* Menyesuaikan ukuran tombol */
     }
 }
