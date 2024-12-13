@@ -82,6 +82,19 @@ form button:hover {
     background-color: #ff7b00;
 }
 
+/* CSS untuk menyelaraskan iframe di tengah */
+.map-container {
+    display: flex;
+    justify-content: center; /* Menyelaraskan secara horizontal */
+    align-items: center; /* Menyelaraskan secara vertikal */
+    margin: 20px 0; /* Margin atas dan bawah */
+}
+iframe {
+    width: 600px; /* Lebar iframe */
+    height: 450px; /* Tinggi iframe */
+    border: 0; /* Menghilangkan border */
+}
+
 footer {
     text-align: center;
     padding: 12px;
