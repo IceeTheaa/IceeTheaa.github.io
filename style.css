@@ -1,31 +1,40 @@
 /* General Body Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif; 
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: #f4f4f9; 
     color: #333;
+    line-height: 1.6; 
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column; 
 }
 
+/* Header/Navbar Styles */
 header {
-    background-color: #ff9933;
+    background-color: #ff9933; 
     color: white;
-    padding: 15px 20px;
+    padding: 15px 5%; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    position: sticky; 
+    top: 0;
+    z-index: 1000;
 }
 
 header .logo {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 28px; 
+    font-weight: 700; 
+    letter-spacing: 1px;
 }
 
 header .nav-links {
     list-style: none;
     display: flex;
-    gap: 15px;
+    gap: 25px; 
     margin: 0;
     padding: 0;
 }
@@ -33,62 +42,99 @@ header .nav-links {
 header .nav-links a {
     text-decoration: none;
     color: white;
-    font-size: 16px;
-    transition: color 0.2s;
+    font-size: 17px;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s;
+}
+
+header .nav-links a::after {
+    /* Efek garis bawah saat hover/aktif */
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease-out;
+}
+
+header .nav-links a:hover::after,
+header .nav-links a.active::after {
+    width: 100%;
 }
 
 header .nav-links a:hover,
 header .nav-links a.active {
-    color: #ffdd99;
+    color: #ffe0b2; 
 }
 
 /* Hero Section */
 .hero {
+    flex-grow: 1; 
     text-align: center;
-    background: url('img/icetea.jpg') no-repeat center center;
+    /* Menambahkan overlay hitam semi-transparan untuk keterbacaan */
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('img/icetea.jpg') no-repeat center center;
+    background-size: cover; 
+    background-attachment: scroll; 
     color: white;
-    padding: 11rem 1rem;
-    background-size: 100%;
-    background-position: center center;
-    background-attachment: fixed;
-    animation: zoomInOut 10s ease-in-out infinite; /* Zoom in and out animation */
+    padding: 12rem 1rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.2); 
+    padding: 20px 30px;
+    border-radius: 10px;
 }
 
 .hero h1 {
-    font-size: 2.5rem;
+    font-size: 3.5rem; 
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
     opacity: 0;
-    animation: moveUp 2s ease-in-out 1s forwards; /* Heading moving up */
+    animation: moveUp 1.5s ease-out 0.5s forwards;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    animation: moveUp 1.5s ease-out 1s forwards;
 }
 
 .hero .btn {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #ff9933;
+    display: inline-block;
+    padding: 12px 30px; 
+    background-color: #ff5722; 
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 50px; 
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
     opacity: 0;
-    animation: moveUp 2s ease-in-out 2s forwards; /* Button moving up */
+    animation: moveUp 1.5s ease-out 1.5s forwards;
+    border: 2px solid white;
 }
 
-/* Zoom in and out animation */
-@keyframes zoomInOut {
-    0% {
-        background-size: 180%;
-    }
-    50% {
-        background-size: 150%; /* Zoom in effect */
-    }
-    100% {
-        background-size: 180%; /* Zoom out back to normal */
-    }
+.hero .btn:hover {
+    background-color: #e64a19;
+    transform: translateY(-3px); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Moving effect for hero h1 */
+/* Keyframes untuk animasi moveUp */
 @keyframes moveUp {
     0% {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
     100% {
         opacity: 1;
@@ -96,66 +142,79 @@ header .nav-links a.active {
     }
 }
 
+/* Footer Styles */
 footer {
     text-align: center;
-    padding: 13px;
+    padding: 20px; 
     background-color: #333;
-    color: white;
+    color: #cccccc; 
+    font-size: 0.9rem;
 }
 
-/* Responsiveness */
+/* Responsiveness - MEDIA QUERIES */
 
-/* Tablet (max-width: 768px) */
-@media (max-width: 768px) {
+/* Tablet and Smaller Desktops (max-width: 992px) */
+@media (max-width: 992px) {
     .hero {
-        background-size: cover; /* Memastikan gambar tetap terlihat penuh */
-        background-position: top center; /* Fokus pada bagian atas gambar */
-        background-attachment: scroll; /* Menonaktifkan efek fixed untuk kenyamanan */
-        padding: 8rem 1rem; /* Mengurangi padding untuk layar kecil */
+        padding: 10rem 1rem;
     }
 
     .hero h1 {
-        font-size: 2rem; /* Mengurangi ukuran teks */
+        font-size: 3rem;
+    }
+}
+
+
+/* Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; 
+        padding: 15px 5%;
     }
 
-    .hero .btn {
-        padding: 0.4rem 0.8rem; /* Menyesuaikan ukuran tombol */
+    header .logo {
+        margin-bottom: 10px;
+    }
+
+    header .nav-links {
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 8rem 1rem;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
     }
 }
 
 /* Mobile (max-width: 480px) */
 @media (max-width: 480px) {
+    header .nav-links {
+        gap: 10px;
+        font-size: 0.9rem;
+    }
+
     .hero {
-        background-size: cover; /* Menampilkan seluruh gambar tanpa terpotong */
-        background-position: center; /* Memusatkan gambar */
-        background-attachment: scroll; /* Memastikan latar mengikuti scroll */
-        padding: 6rem 1rem; /* Mengurangi padding lebih lanjut untuk kenyamanan */
+        padding: 6rem 1rem;
     }
 
     .hero h1 {
-        font-size: 1.6rem; /* Ukuran teks lebih kecil untuk kenyamanan */
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
     }
 
     .hero .btn {
-        font-size: 0.9rem; /* Menyesuaikan ukuran font tombol */
-        padding: 0.3rem 0.7rem; /* Ukuran padding tombol */
-    }
-}
-
-/* iPhone 8 Specific (375px width) */
-@media (max-width: 375px) {
-    .hero {
-        background-size: cover; /* Menampilkan seluruh gambar tanpa terpotong */
-        background-position: center; /* Memusatkan gambar */
-        background-attachment: scroll; /* Memastikan latar mengikuti scroll */
-        padding: 6rem 1rem; /* Mengurangi padding lebih lanjut untuk layar kecil */
-    }
-
-    .hero h1 {
-        font-size: 1.5rem; /* Ukuran teks lebih kecil */
-    }
-
-    .hero .btn {
-        padding: 0.3rem 0.6rem; /* Menyesuaikan ukuran tombol */
+        padding: 10px 20px;
+        font-size: 0.9rem;
     }
 }

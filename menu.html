@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Indo Ice Tea</title>
-    <link rel="stylesheet" href="css/stylemenu.css">
+    <link rel="stylesheet" href="css/stylemenu.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <link 
     rel="icon"
     type="image/x-icon"
@@ -26,217 +27,266 @@
     <section id="menu">
         <h2>Menu Kami</h2>
         <div class="menu-grid">
-            <!-- Menu Item 1 -->
-            <div class="menu-item">
-                <img src="img/original.jpg" alt="Ice Tea Lemon Klasik" class="menu-img">
-                <h3>Original Ice Tea</h3>
-                <p>minuman teh dingin yang disajikan dengan es batu, memberikan sensasi segar dan ringan. </p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            
+            <div class="menu-item" data-name="Original Ice Tea" data-price="8000">
+                <img src="img/original.jpg" alt="Original Ice Tea" class="menu-img">
+                <div class="item-details"> 
+                    <h3>Original Ice Tea</h3>
+                    <p>minuman teh dingin yang disajikan dengan es batu, memberikan sensasi segar dan ringan. </p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-                   <!-- Menu Item 2 -->
-        <div class="menu-item">
-            <img src="img/lemon tea.jpg" alt="Ice Tea Peach" class="menu-img">
-            <h3>Lemon Tea</h3>
-            <p>teh yang dipadukan dengan perasan lemon segar, menciptakan rasa segar yang menyegarkan dan sedikit asam. </p>
-            <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Lemon Tea" data-price="8000">
+                <img src="img/lemon tea.jpg" alt="Lemon Tea" class="menu-img">
+                <div class="item-details">
+                    <h3>Lemon Tea</h3>
+                    <p>teh yang dipadukan dengan perasan lemon segar, menciptakan rasa segar yang menyegarkan dan sedikit asam. </p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-        <!-- Menu Item 3 -->
-        <div class="menu-item">
-            <img src="img/Mango Tea.webp" alt="Mojito Teh Hijau" class="menu-img">
-            <h3>Mango Tea</h3>
-            <p>minuman teh yang dipadukan dengan rasa manis dan segar dari buah mangga.</p>
-            <span class="price">Rp8.000</span>
-            <div class="quantity-control">
-                <button class="btn-minus">-</button>
-                <span class="quantity">0</span>
-                <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Mango Tea" data-price="8000">
+                <img src="img/Mango Tea.webp" alt="Mango Tea" class="menu-img">
+                <div class="item-details">
+                    <h3>Mango Tea</h3>
+                    <p>minuman teh yang dipadukan dengan rasa manis dan segar dari buah mangga.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 4 -->
-            <div class="menu-item">
-                <img src="img/leci tea.jpg" alt="Berry Ice Tea" class="menu-img">
-                <h3>Leci Tea</h3>
-                <p>Minuman teh yang dipadukan dengan rasa manis dan segar dari buah leci, menciptakan kombinasi rasa yang lembut dan eksotis.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Leci Tea" data-price="8000">
+                <img src="img/leci tea.jpg" alt="Leci Tea" class="menu-img">
+                <div class="item-details">
+                    <h3>Leci Tea</h3>
+                    <p>Minuman teh yang dipadukan dengan rasa manis dan segar dari buah leci, menciptakan kombinasi rasa yang lembut dan eksotis.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 5 -->
-            <div class="menu-item">
-                <img src="img/Strawberry Tea.jpg" alt="Matcha Ice Tea" class="menu-img">
-                <h3>Strawberry Tea</h3>
-                <p>teh yang dipadukan dengan rasa manis dan segar dari buah stroberi, menciptakan minuman menyegarkan, dan penuh dengan rasa buah yang alami.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Strawberry Tea" data-price="8000">
+                <img src="img/Strawberry Tea.jpg" alt="Strawberry Tea" class="menu-img">
+                <div class="item-details">
+                    <h3>Strawberry Tea</h3>
+                    <p>teh yang dipadukan dengan rasa manis dan segar dari buah stroberi, menciptakan minuman menyegarkan, dan penuh dengan rasa buah yang alami.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 6 -->
-            <div class="menu-item">
-                <img src="img/Markisa tea.jpg" alt="Tropical Ice Tea" class="menu-img">
-                <h3>Markisa Tea</h3>
-                <p>Minuman segar yang memadukan rasa eksotis buah markisa dengan keharuman teh.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Markisa Tea" data-price="8000">
+                <img src="img/Markisa tea.jpg" alt="Markisa Tea" class="menu-img">
+                <div class="item-details">
+                    <h3>Markisa Tea</h3>
+                    <p>Minuman segar yang memadukan rasa eksotis buah markisa dengan keharuman teh.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 7 -->
-            <div class="menu-item">
-                <img src="img/Yakult Tea.jpg" alt="Green Apple Ice Tea" class="menu-img">
-                <h3>Yakult Tea</h3>
-                <p>Salah satu menu minuman unik yang menggabungkan rasa segar teh dengan rasa manis dan asam khas Yakult.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Yakult Tea" data-price="8000">
+                <img src="img/Yakult Tea.jpg" alt="Yakult Tea" class="menu-img">
+                <div class="item-details">
+                    <h3>Yakult Tea</h3>
+                    <p>Salah satu menu minuman unik yang menggabungkan rasa segar teh dengan rasa manis dan asam khas Yakult.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 8 -->
-            <div class="menu-item">
-                <img src="img/Milk tea.jpeg" alt="Vanilla Ice Tea" class="menu-img">
-                <h3>Milk tea</h3>
-                <p>Tteh yang dipadukan dengan susu, menciptakan kombinasi rasa teh yang kuat dengan kelembutan susu yang creamy.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Milk tea" data-price="8000">
+                <img src="img/Milk tea.jpeg" alt="Milk tea" class="menu-img">
+                <div class="item-details">
+                    <h3>Milk tea</h3>
+                    <p>Tteh yang dipadukan dengan susu, menciptakan kombinasi rasa teh yang kuat dengan kelembutan susu yang creamy.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 9 -->
-            <div class="menu-item">
-                <img src="img/Strawberry-Milk.jpg" alt="Caramel Ice Tea" class="menu-img">
-                <h3>Strawberry Milk</h3>
-                <p>minuman manis yang terbuat dari susu yang dipadukan dengan sirup atau pure stroberi, menciptakan rasa segar dan manis.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Strawberry Milk" data-price="8000">
+                <img src="img/Strawberry-Milk.jpg" alt="Strawberry Milk" class="menu-img">
+                <div class="item-details">
+                    <h3>Strawberry Milk</h3>
+                    <p>minuman manis yang terbuat dari susu yang dipadukan dengan sirup atau pure stroberi, menciptakan rasa segar dan manis.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 10 -->
-            <div class="menu-item">
-                <img src="img/greentea.jpg" alt="Green Apple Ice Tea" class="menu-img">
-                <h3>Green Tea</h3>
-                <p>teh yang terbuat dari daun teh hijau yang tidak melalui proses fermentasi, menjaga kandungan antioksidan dan nutrisi alami.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Green Tea" data-price="8000">
+                <img src="img/greentea.jpg" alt="Green Tea" class="menu-img">
+                <div class="item-details">
+                    <h3>Green Tea</h3>
+                    <p>teh yang terbuat dari daun teh hijau yang tidak melalui proses fermentasi, menjaga kandungan antioksidan dan nutrisi alami.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 11 -->
-            <div class="menu-item">
-                <img src="img/Taro Milk.jpg" alt="Vanilla Ice Tea" class="menu-img">
-                <h3>Taro Milk</h3>
-                <p>minuman manis yang terbuat dari campuran susu dan pasta taro, memberikan rasa yang lembut, creamy, dan sedikit manis.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Taro Milk" data-price="8000">
+                <img src="img/Taro Milk.jpg" alt="Taro Milk" class="menu-img">
+                <div class="item-details">
+                    <h3>Taro Milk</h3>
+                    <p>minuman manis yang terbuat dari campuran susu dan pasta taro, memberikan rasa yang lembut, creamy, dan sedikit manis.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 12 -->
-            <div class="menu-item">
-                <img src="img/Redvelvet1.jpg" alt="Caramel Ice Tea" class="menu-img">
-                <h3>Red Velvet</h3>
-                <p>minuman manis yang terinspirasi oleh rasa khas kue red velvet, dengan kombinasi warna merah yang mencolok dan rasa cokelat yang lembut.</p>
-                <span class="price">Rp8.000</span>
-                <div class="quantity-control">
-                    <button class="btn-minus">-</button>
-                    <span class="quantity">0</span>
-                    <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Red Velvet" data-price="8000">
+                <img src="img/Redvelvet1.jpg" alt="Red Velvet" class="menu-img">
+                <div class="item-details">
+                    <h3>Red Velvet</h3>
+                    <p>minuman manis yang terinspirasi oleh rasa khas kue red velvet, dengan kombinasi warna merah yang mencolok dan rasa cokelat yang lembut.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Menu Item 13 -->
-            <div class="menu-item">
-                <img src="img/Choco.jpg" alt="Green Apple Ice Tea" class="menu-img">
-                <h3>Choco Original</h3>
-                <p>minuman cokelat klasik yang terbuat dari susu dan cokelat, menciptakan rasa manis dan creamy yang kaya.</p>
-            <span class="price">Rp8.000</span>
-            <div class="quantity-control">
-                <button class="btn-minus">-</button>
-                <span class="quantity">0</span>
-                <button class="btn-plus">+</button>
+            <div class="menu-item" data-name="Choco Original" data-price="8000">
+                <img src="img/Choco.jpg" alt="Choco Original" class="menu-img">
+                <div class="item-details">
+                    <h3>Choco Original</h3>
+                    <p>minuman cokelat klasik yang terbuat dari susu dan cokelat, menciptakan rasa manis dan creamy yang kaya.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
+                </div>
             </div>
+
+            <div class="menu-item" data-name="Cappuccino" data-price="8000">
+                <img src="img/cappucino.jpg" alt="Cappuccino" class="menu-img">
+                <div class="item-details">
+                    <h3>Cappuccino</h3>
+                    <p>kopi klasik yang terkenal dengan kombinasi rasa kopi yang kuat, susu yang lembut, dan busa susu yang ringan dan berbusa.</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-name="Tiramisu" data-price="8000">
+                <img src="img/tiramisu.jpg" alt="Tiramisu" class="menu-img">
+                <div class="item-details">
+                    <h3>Tiramisu</h3>
+                    <p>tiramisu memadukan rasa kopi, cokelat, dan krim. Minuman ini memiliki lapisan rasa yang kaya, manis, dan sedikit pahit,</p>
+                </div>
+                <div class="price-and-control">
+                    <span class="price">Rp8.000</span>
+                    <div class="quantity-control">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">0</span>
+                        <button class="btn-plus">+</button>
+                    </div>
+                </div>
+            </div>
+            
         </div>
-
-            <!-- Menu Item 14 -->
-            <div class="menu-item">
-                <img src="img/cappucino.jpg" alt="Green Apple Ice Tea" class="menu-img">
-                <h3>Cappucino</h3>
-                <p>kopi klasik yang terkenal dengan kombinasi rasa kopi yang kuat, susu yang lembut, dan busa susu yang ringan dan berbusa.</p>
-            <span class="price">Rp8.000</span>
-            <div class="quantity-control">
-                <button class="btn-minus">-</button>
-                <span class="quantity">0</span>
-                <button class="btn-plus">+</button>
-            </div>
-        </div>
-
-        <!-- Menu Item 15 -->
-        <div class="menu-item">
-            <img src="img/tiramisu.jpg" alt="Green Apple Ice Tea" class="menu-img">
-            <h3>Tiramisu</h3>
-            <p>tiramisu memadukan rasa kopi, cokelat, dan krim. Minuman ini memiliki lapisan rasa yang kaya, manis, dan sedikit pahit,</p>
-        <span class="price">Rp8.000</span>
-        <div class="quantity-control">
-            <button class="btn-minus">-</button>
-            <span class="quantity">0</span>
-            <button class="btn-plus">+</button>
-        </div>
-    </div>
-</div>
+        
+        <div class="content-padding-bottom"></div>
+    </section>
     
-
-    <div class="checkout">
-        <button class="btn-checkout" onclick="showCheckoutPopup()">Checkout</button>
-        <div id="total-container">Total: Rp0</div>
-    </div>
-    
-    <!-- Checkout Popup -->
     <div id="checkout-popup" class="popup">
         <div class="popup-content">
-            <h3>Checkout</h3>
-            <div id="popup-items"></div> <!-- Daftar barang yang dipilih -->
+            <h3>Ringkasan Pesanan</h3>
+            <div id="popup-items"></div> 
             <p id="popup-total">Total: Rp0</p>
-            <button onclick="completeCheckout()" class="btn-checkout">Complete Checkout</button>
+            <button onclick="completeCheckout()" class="btn-checkout">Selesaikan Pesanan</button>
             <button onclick="closeCheckoutPopup()" class="btn-close">Tutup</button>
         </div>
+    </div>
+
+    <div id="floating-cart" onclick="showCheckoutPopup()">
+        <span id="cart-item-count" class="cart-badge">0</span>
+        <span class="cart-icon">🛒</span> 
+        <span id="floating-cart-total" class="cart-total-price">Total: Rp0</span>
     </div>
     
 
