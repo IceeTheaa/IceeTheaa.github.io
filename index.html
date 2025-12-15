@@ -2,7 +2,6 @@
 <html lang="id">
 <head>
 
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVRPPK2LMQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -25,7 +24,7 @@
 </head>
 <body>
     <header>
-        <div class="logo">🍹 Indo Ice Tea </div>
+        <div class="logo">🍹 Indo Ice Tea </div> 
         <nav>
             <ul class="nav-links">
                 <li><a href="index.html">Beranda</a></li>
@@ -43,7 +42,20 @@
     </section>
 
     <footer>
-        <p> 2024 Indo Ice Tea. Semua Hak Dilindungi.</p>
+        <span id="secretLoginTrigger" style="cursor: pointer;">
+             2024 Indo Ice Tea. Semua Hak Dilindungi.
+        </span>
     </footer>
+
+    <script>
+        // Mendapatkan elemen pemicu login (teks copyright)
+        const trigger = document.getElementById('secretLoginTrigger');
+
+        // Menambahkan event listener untuk Double Click (dblclick)
+        trigger.addEventListener('dblclick', function() {
+            // Arahkan ke halaman login
+            window.location.href = 'login.html';
+        });
+    </script>
 </body>
 </html>
