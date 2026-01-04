@@ -27,9 +27,9 @@
         <div class="logo">🍹 Indo Ice Tea </div> 
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="contact.html">Kontak</a></li>
+                <li><a href="index.php">Beranda</a></li>
+                <li><a href="menu.php">Menu</a></li>
+                <li><a href="contact.php">Kontak</a></li>
             </ul>
         </nav>
     </header>
@@ -38,13 +38,11 @@
         <h1>Selamat Datang di Ice Tea. </h1>
         <h1>Estehnya Indonesia</h1>
         <p>Pilihan minuman segar favorit Anda, diracik tanpa pemanis buatan!</p>
-        <a href="menu.html" class="btn">Jelajahi Menu</a>
+        <a href="menu.php" class="btn">Jelajahi Menu</a>
     </section>
 
     <footer>
-        <span id="secretLoginTrigger" style="cursor: pointer;">
-             2024 Indo Ice Tea. Semua Hak Dilindungi.
-        </span>
+        <p>&copy; 2024 Iceetheaa. <a href="login.php" style="color: inherit; text-decoration: none; cursor: default;">All rights reserved.</a></p>
     </footer>
 
     <script src="script.js"></script>

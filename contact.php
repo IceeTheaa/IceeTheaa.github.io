@@ -19,9 +19,9 @@
         <div class="logo">🍹 Indo Ice Tea</div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html">Beranda </a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="contact.html" class="active">Kontak</a></li>
+                <li><a href="index.php">Beranda </a></li>
+                <li><a href="menu.php">Menu</a></li>
+                <li><a href="contact.php" class="active">Kontak</a></li>
 
             </ul>
         </nav>

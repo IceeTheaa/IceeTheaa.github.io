@@ -1,9 +1,4 @@
-/**
- * File: js/script.js
- * Deskripsi: Mengelola fungsionalitas keranjang belanja, kuantitas, perhitungan total, dan popup checkout.
- */
-
-// 1. Fungsi untuk memformat angka menjadi mata uang Rupiah
+// 1. Fungsi format mata uang
 function formatRupiah(angka) {
     const reverse = angka.toString().split('').reverse().join('');
     const ribuan = reverse.match(/\d{1,3}/g);
@@ -11,10 +6,19 @@ function formatRupiah(angka) {
     return 'Rp' + result;
 }
 
-// 2. Fungsi untuk menghitung dan memperbarui total (HARGA dan JUMLAH ITEM)
+// 2. Fungsi untuk menampilkan/menyembunyikan QRIS (PENTING: Harus di luar DOMContentLoaded)
+function toggleQrisDisplay() {
+    const method = document.getElementById('payment-method').value;
+    const qrisArea = document.getElementById('qris-area');
+    if (qrisArea) {
+        qrisArea.style.display = (method === 'qris') ? 'block' : 'none';
+    }
+}
+
+// 3. Fungsi update total keranjang
 function updateOrderTotal() {
     let total = 0;
-    let totalItems = 0; // Menghitung total item
+    let totalItems = 0;
     const menuItems = document.querySelectorAll('.menu-item');
 
     menuItems.forEach(item => {
@@ -23,71 +27,46 @@ function updateOrderTotal() {
         const price = parseInt(item.dataset.price); 
         
         total += quantity * price;
-        totalItems += quantity; // Menambahkan kuantitas ke total item
+        totalItems += quantity;
     });
     
-    // Perbarui tampilan total harga di Floating Cart
     document.getElementById('floating-cart-total').textContent = `Total: ${formatRupiah(total)}`;
-    
-    // Perbarui jumlah item di badge Floating Cart
     document.getElementById('cart-item-count').textContent = totalItems;
 
-    // Logika untuk menyembunyikan/menampilkan keranjang jika kosong
     const floatingCart = document.getElementById('floating-cart');
-    if (totalItems > 0) {
-        // Tampilkan sebagai 'flex' (agar muncul)
-        floatingCart.style.display = 'flex'; 
-    } else {
-        // Sembunyikan jika 0 item
-        floatingCart.style.display = 'none'; 
+    if (floatingCart) {
+        floatingCart.style.display = (totalItems > 0) ? 'flex' : 'none';
     }
-
     return total;
 }
 
-// 3. Fungsi untuk me-reset semua kuantitas item menjadi 0
-function resetQuantities() {
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(item => {
-        const quantityElement = item.querySelector('.quantity');
-        quantityElement.textContent = '0';
-    });
-    updateOrderTotal(); 
-}
-
-
-// 4. Menghubungkan fungsi ke tombol + dan - (Dijalankan saat DOM siap)
+// 4. Inisialisasi Tombol
 document.addEventListener('DOMContentLoaded', () => {
     const menuItems = document.querySelectorAll('.menu-item');
-
     menuItems.forEach(item => {
         const btnMinus = item.querySelector('.btn-minus');
         const btnPlus = item.querySelector('.btn-plus');
         const quantityElement = item.querySelector('.quantity');
 
-        btnPlus.addEventListener('click', () => {
-            let quantity = parseInt(quantityElement.textContent);
-            quantity += 1;
-            quantityElement.textContent = quantity;
-            updateOrderTotal();
-        });
-
-        btnMinus.addEventListener('click', () => {
-            let quantity = parseInt(quantityElement.textContent);
-            if (quantity > 0) {
-                quantity -= 1;
-                quantityElement.textContent = quantity;
+        if(btnPlus) {
+            btnPlus.addEventListener('click', () => {
+                quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
                 updateOrderTotal();
-            }
-        });
+            });
+        }
+        if(btnMinus) {
+            btnMinus.addEventListener('click', () => {
+                let qty = parseInt(quantityElement.textContent);
+                if (qty > 0) {
+                    quantityElement.textContent = qty - 1;
+                    updateOrderTotal();
+                }
+            });
+        }
     });
-
-    // Panggil updateOrderTotal saat halaman pertama kali dimuat
-    updateOrderTotal(); 
 });
 
-
-// 5. Fungsi Popup Checkout
+// 5. Fungsi Munculkan Popup
 function showCheckoutPopup() {
     const popup = document.getElementById('checkout-popup');
     const popupItemsContainer = document.getElementById('popup-items');
@@ -98,28 +77,21 @@ function showCheckoutPopup() {
     const menuItems = document.querySelectorAll('.menu-item');
 
     menuItems.forEach(item => {
-        const quantityElement = item.querySelector('.quantity');
-        const quantity = parseInt(quantityElement.textContent);
-        
+        const quantity = parseInt(item.querySelector('.quantity').textContent);
         if (quantity > 0) {
             const name = item.dataset.name;
             const price = parseInt(item.dataset.price);
             const subtotal = quantity * price;
 
-            // Markup Baru untuk tampilan yang lebih rapi
-            orderListHTML += `
-                <p>
-                    <span>${quantity}x ${name}</span>
-                    <strong>${formatRupiah(subtotal)}</strong>
-                </p>`;
+            orderListHTML += `<div style="display:flex; justify-content:space-between;">
+                                <span>${quantity}x ${name}</span>
+                                <span>${formatRupiah(subtotal)}</span>
+                              </div>`;
             total += subtotal;
         }
     });
 
-    if (total === 0) {
-        alert('Keranjang belanja masih kosong! Silakan pilih menu.');
-        return;
-    }
+    if (total === 0) return alert('Keranjang kosong!');
 
     popupItemsContainer.innerHTML = orderListHTML;
     popupTotalElement.textContent = `Total Akhir: ${formatRupiah(total)}`;
@@ -130,11 +102,45 @@ function closeCheckoutPopup() {
     document.getElementById('checkout-popup').style.display = 'none';
 }
 
+// 6. Fungsi Selesaikan Pesanan (Simpan ke DB lalu WA)
 function completeCheckout() {
-    alert('Pesanan Anda berhasil dikirim! Keranjang belanja di-reset.');
+    const method = document.getElementById('payment-method').value;
+    const totalRaw = document.getElementById('popup-total').textContent;
+    const totalHarga = totalRaw.replace(/\D/g, ''); 
+    const menuItems = document.querySelectorAll('.menu-item');
     
-    // Reset keranjang setelah checkout selesai
-    resetQuantities();
+    let detailPesan = "";
+    let pesanWA = `*PESANAN BARU - INDO ICE TEA*%0A`;
     
-    closeCheckoutPopup();
+    menuItems.forEach(item => {
+        const qty = parseInt(item.querySelector('.quantity').textContent);
+        if(qty > 0) {
+            detailPesan += `${item.dataset.name} (${qty}x), `;
+            pesanWA += `• ${item.dataset.name} (${qty}x)%0A`;
+        }
+    });
+
+    // KIRIM KE DATABASE
+    const formData = new FormData();
+    formData.append('detail', detailPesan);
+    formData.append('total', totalHarga);
+    formData.append('metode', method);
+
+    fetch('simpan_pesanan.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then(data => {
+        // Jika berhasil simpan, baru buka WA
+        const nomorWA = "6282122339125"; 
+        window.open(`https://wa.me/${nomorWA}?text=${pesanWA}%0ATotal: ${totalRaw}%0AMetode: ${method}`, '_blank');
+        
+        // Reset
+        const menuItemsReset = document.querySelectorAll('.menu-item');
+        menuItemsReset.forEach(i => i.querySelector('.quantity').textContent = '0');
+        updateOrderTotal();
+        closeCheckoutPopup();
+    })
+    .catch(err => alert("Gagal terhubung ke database"));
 }
