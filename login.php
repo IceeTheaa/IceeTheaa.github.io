@@ -162,7 +162,7 @@ if (isset($_POST['login'])) {
                 <label>Password</label>
                 <input type="password" name="password" placeholder="Password Anda" required>
             </div>
-            <button type="submit" name="login">Masuk ke Dashboard</button>
+            <button type="submit" name="login">Masuk ke Tampilan Admin</button>
         </form>
 
         <div class="footer-text">
