@@ -2,220 +2,271 @@
 session_start();
 include 'config.php';
 
-// Proteksi: Hanya admin yang boleh masuk
 if(!isset($_SESSION['admin'])) { 
     header("Location: login.php"); 
     exit; 
 }
 
-// Logika Update Status
 if(isset($_POST['update_status'])) {
     $id = $_POST['order_id'];
     $status_baru = $_POST['status_baru'];
     mysqli_query($conn, "UPDATE pesanan SET status_pesanan = '$status_baru' WHERE id = '$id'");
     header("Location: riwayat_pesanan.php");
 }
+
+// Ambil statistik sederhana
+$total_pesanan = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM pesanan"));
+$total_pendapatan = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_harga) as total FROM pesanan WHERE status_pesanan = 'Selesai'"))['total'];
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riwayat Pesanan - Admin</title>
-    <link rel="stylesheet" href="css/stylemenu.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Management Pesanan | Indo Ice Tea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff7e5f;
+            --secondary: #feb47b;
             --dark: #2d3436;
-            --bg: #fffaf9;
+            --light: #f8f9fa;
+            --success: #27ae60;
+            --danger: #eb4d4b;
+            --warning: #f1c40f;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
+            background-color: #f0f2f5;
             margin: 0;
-            padding: 0;
             color: var(--dark);
         }
 
-        .container {
-            padding: 40px 5%;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .header-area {
+        /* Navbar Style */
+        .nav-header {
+            background: white;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            padding: 30px 5%;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
         }
 
-        h2 { margin: 0; color: var(--dark); font-weight: 700; }
-
-        .btn-back {
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: 0.3s;
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary);
         }
 
-        .btn-back:hover { transform: translateX(-5px); }
+        .stat-card hsmall { font-size: 12px; color: #888; text-transform: uppercase; }
+        .stat-card h3 { margin: 5px 0 0 0; font-size: 20px; }
 
-        /* Card Wrapper for Table */
+        /* Table Card */
         .table-card {
             background: white;
             border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(255, 126, 95, 0.1);
-            overflow-x: auto; /* Aman untuk tampilan mobile */
+            padding: 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 800px;
         }
 
         th {
-            background: #fff5f2;
-            color: var(--primary);
-            padding: 15px;
+            background: #fafafa;
+            color: #888;
+            padding: 15px 25px;
             text-align: left;
-            font-size: 0.9rem;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-bottom: 2px solid #fef0ed;
         }
 
         td {
-            padding: 15px;
-            border-bottom: 1px solid #fef0ed;
-            font-size: 0.9rem;
-            vertical-align: middle;
+            padding: 20px 25px;
+            border-bottom: 1px solid #f8f8f8;
+            font-size: 14px;
         }
 
-        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #fffaf9; }
 
-        /* Status Badges */
-        .status-badge {
-            padding: 6px 12px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 700;
+        /* Status Badges Custom */
+        .badge {
+            padding: 6px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
             display: inline-block;
         }
-        .status-baru { background: #fff3cd; color: #856404; } /* Kuning Pucat */
-        .status-selesai { background: #e8f5e9; color: #2e7d32; } /* Hijau Pucat */
-        .status-batal { background: #ffebee; color: #c62828; } /* Merah Pucat */
+        .status-baru { background: #fff4e5; color: #ff9800; }
+        .status-selesai { background: #e7f7ed; color: #2ecc71; }
+        .status-batal { background: #ffeaea; color: #e74c3c; }
 
-        /* Form Controls */
+        /* Action UI */
         select {
-            padding: 8px;
-            border-radius: 10px;
-            border: 1px solid #eee;
-            font-family: 'Poppins';
-            font-size: 0.85rem;
-            outline: none;
-            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+            background: #f9f9f9;
         }
 
         .btn-update {
-            background: var(--primary);
+            background: var(--dark);
             color: white;
             border: none;
             padding: 8px 15px;
             cursor: pointer;
-            border-radius: 10px;
-            font-weight: 600;
+            border-radius: 8px;
+            font-weight: 500;
             transition: 0.3s;
         }
 
-        .btn-update:hover {
-            background: #ff6b4a;
-            box-shadow: 0 4px 10px rgba(255, 126, 95, 0.3);
+        .btn-update:hover { background: var(--primary); }
+
+        .btn-back {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .order-detail {
-            max-width: 300px;
-            line-height: 1.4;
-            color: #636e72;
+        .btn-back:hover { color: var(--primary); }
+
+        .order-items {
+            font-size: 13px;
+            color: #555;
+            background: #fdfdfd;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 3px solid #eee;
         }
 
-        .price-text {
-            font-weight: 700;
-            color: var(--dark);
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .nav-header h2 { font-size: 18px; }
         }
     </style>
 </head>
 <body>
 
+    <nav class="nav-header">
+        <h2 style="margin:0;">🍹 Indo Ice Tea <span style="font-weight:300; font-size:16px;">| Admin Panel</span></h2>
+        <a href="menu.php" class="btn-back">← Dashboard Menu</a>
+    </nav>
+
     <div class="container">
-        <div class="header-area">
-            <h2>📦 Pesanan Masuk</h2>
-            <a href="menu.php" class="btn-back">← Kembali ke Menu</a>
-        </div>
         
+        <div class="stats-grid">
+            <div class="stat-card">
+                <hsmall>Total Pesanan</hsmall>
+                <h3><?php echo $total_pesanan; ?> Order</h3>
+            </div>
+            <div class="stat-card" style="border-left-color: var(--success);">
+                <hsmall>Pendapatan Selesai</hsmall>
+                <h3>Rp <?php echo number_format($total_pendapatan, 0, ',', '.'); ?></h3>
+            </div>
+        </div>
+
         <div class="table-card">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Waktu</th>
-                        <th>Detail Pesanan</th>
-                        <th>Total Tagihan</th>
-                        <th>Pembayaran</th>
-                        <th>Status</th>
-                        <th>Aksi Admin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $res = mysqli_query($conn, "SELECT * FROM pesanan ORDER BY waktu_pesan DESC");
-                    while($row = mysqli_fetch_assoc($res)) :
-                        // Normalisasi class status agar sesuai dengan CSS
-                        $status_label = $row['status_pesanan'];
-                        $class_status = strtolower($status_label);
-                    ?>
-                    <tr>
-                        <td style="color: #999; font-size: 0.8rem;">
-                            <strong><?php echo date('d M', strtotime($row['waktu_pesan'])); ?></strong><br>
-                            <?php echo date('H:i', strtotime($row['waktu_pesan'])); ?>
-                        </td>
-                        <td>
-                            <div class="order-detail">
-                                <?php echo nl2br($row['detail_pesanan']); ?>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="price-text">Rp<?php echo number_format($row['total_harga'], 0, ',', '.'); ?></span>
-                        </td>
-                        <td>
-                            <span style="font-weight: 600; font-size: 0.8rem;"><?php echo strtoupper($row['metode_pembayaran']); ?></span>
-                        </td>
-                        <td>
-                            <span class="status-badge status-<?php echo $class_status; ?>">
-                                <?php echo $status_label; ?>
-                            </span>
-                        </td>
-                        <td>
-                            <form method="POST" style="display: flex; gap: 8px; align-items: center;">
-                                <input type="hidden" name="order_id" value="<?php echo $row['id']; ?>">
-                                <select name="status_baru">
-                                    <option value="Baru" <?php if($status_label == 'Baru') echo 'selected'; ?>>Baru</option>
-                                    <option value="Selesai" <?php if($status_label == 'Selesai') echo 'selected'; ?>>Selesai</option>
-                                    <option value="Batal" <?php if($status_label == 'Batal') echo 'selected'; ?>>Batal</option>
-                                </select>
-                                <button type="submit" name="update_status" class="btn-update">Update</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
+            <div class="table-header">
+                <h3 style="margin:0; font-size: 18px;">📦 Daftar Pesanan Masuk</h3>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Waktu & ID</th>
+                            <th>Detail Item</th>
+                            <th>Total Bayar</th>
+                            <th>Metode</th>
+                            <th>Status</th>
+                            <th>Aksi Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $res = mysqli_query($conn, "SELECT * FROM pesanan ORDER BY waktu_pesan DESC");
+                        while($row = mysqli_fetch_assoc($res)) :
+                            $status = $row['status_pesanan'];
+                            $class_status = strtolower($status);
+                        ?>
+                        <tr>
+                            <td>
+                                <div style="font-weight:600; color:var(--primary)">#ORD-<?php echo $row['id']; ?></div>
+                                <div style="font-size:11px; color:#aaa; margin-top:4px;">
+                                    <?php echo date('d M Y, H:i', strtotime($row['waktu_pesan'])); ?>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="order-items">
+                                    <?php echo nl2br($row['detail_pesanan']); ?>
+                                </div>
+                            </td>
+                            <td>
+                                <span style="font-weight:700;">Rp <?php echo number_format($row['total_harga'], 0, ',', '.'); ?></span>
+                            </td>
+                            <td>
+                                <span style="font-size:11px; padding:3px 8px; background:#eee; border-radius:4px; font-weight:600;">
+                                    <?php echo strtoupper($row['metode_pembayaran']); ?>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge status-<?php echo $class_status; ?>">
+                                    <?php echo $status; ?>
+                                </span>
+                            </td>
+                            <td>
+                                <form method="POST" style="display: flex; gap: 5px;">
+                                    <input type="hidden" name="order_id" value="<?php echo $row['id']; ?>">
+                                    <select name="status_baru">
+                                        <option value="Baru" <?php if($status == 'Baru') echo 'selected'; ?>>Baru</option>
+                                        <option value="Selesai" <?php if($status == 'Selesai') echo 'selected'; ?>>Selesai</option>
+                                        <option value="Batal" <?php if($status == 'Batal') echo 'selected'; ?>>Batal</option>
+                                    </select>
+                                    <button type="submit" name="update_status" class="btn-update">✓</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

@@ -7,134 +7,173 @@ include 'config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - Indo Ice Tea</title>
-    <link rel="stylesheet" href="css/stylemenu.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Menu Terlaris | Indo Ice Tea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff7e5f;
-            --primary-light: ##ff7e5f;
+            --primary-dark: #e66e52;
+            --secondary: #feb47b;
             --dark: #2d3436;
             --gray: #636e72;
+            --light-bg: #f4f4f9; /* Background sedikit lebih abu agar border putih/item lebih terlihat */
+            --navbar-orange: #ff9933; /* Warna orange solid sesuai index lama */
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #fffaf9;
+            background-color: var(--light-bg);
             margin: 0;
             color: var(--dark);
+            scroll-behavior: smooth;
         }
 
-        /* Header Modern */
+        /* --- Header Orange Solid (Sesuai Index Lama) --- */
         header {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 15px 5%;
+            background-color: var(--navbar-orange); 
+            color: white;
+            padding: 15px 8%; 
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 15px rgba(255, 126, 95, 0.1);
-            position: sticky;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            position: sticky; 
             top: 0;
             z-index: 1000;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        header .logo { 
+            font-size: 1.6rem; 
+            font-weight: 700; 
+            color: white; /* Logo jadi putih agar kontras di orange */
+            letter-spacing: -0.5px;
+        }
 
-        .nav-links { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
-        .nav-links a { 
+        header .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+        header .nav-links a { 
             text-decoration: none; 
-            color: var(--dark); 
-            font-weight: 600;
-            font-size: 0.9rem;
+            color: white; 
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            position: relative;
+        }
+        header .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -5px; left: 0;
+            background: white;
             transition: 0.3s;
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        header .nav-links a:hover::after, header .nav-links a.active::after { width: 100%; }
+        header .nav-links a:hover, header .nav-links a.active { color: #ffe0b2; }
 
-        /* Admin Action Buttons (Ganti Banner) */
+        /* --- Admin Floating Action Buttons --- */
         .admin-fab-group {
             position: fixed;
             bottom: 30px;
             left: 30px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             z-index: 1001;
         }
         .fab-admin {
             background: var(--dark);
             color: white;
-            padding: 12px 20px;
+            padding: 14px 24px;
             border-radius: 50px;
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .fab-admin.special { background: var(--primary); }
-        .fab-admin:hover { transform: translateY(-5px); filter: brightness(1.1); }
+        .fab-admin:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 12px 30px rgba(255, 126, 95, 0.3); }
 
-        /* Section Menu */
-        #menu { padding: 40px 5%; max-width: 1200px; margin: auto; }
-        h2 { text-align: center; margin-bottom: 40px; font-weight: 700; font-size: 2rem; color: var(--dark); }
+        /* --- Menu Section --- */
+        #menu { padding: 60px 8%; max-width: 1300px; margin: auto; }
+        .menu-title { text-align: center; margin-bottom: 50px; }
+        .menu-title h2 { font-weight: 700; font-size: 2.5rem; margin-bottom: 10px; color: var(--dark); }
+        .menu-title p { color: var(--gray); font-size: 1rem; }
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
         }
 
         .menu-item {
             background: white;
-            border-radius: 25px;
+            border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #fdf0ed;
+            /* Border abu-abu tegas di belakang */
+            border: 2px solid #e0e0e0; 
+            transition: all 0.4s ease;
+            position: relative;
         }
 
-        .menu-item:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(255, 126, 95, 0.2); }
-        .menu-img { width: 100%; height: 220px; object-fit: cover; }
+        .menu-item:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--primary); /* Border berubah warna saat hover */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+        }
 
-        .item-details { padding: 20px 20px 10px; }
-        .item-details h3 { margin: 0; font-size: 1.25rem; font-weight: 700; }
-        .item-details p { font-size: 0.85rem; color: var(--gray); margin: 8px 0; line-height: 1.6; }
+        .menu-img { 
+            width: 100%; 
+            height: 250px; 
+            object-fit: cover; 
+            transition: 0.5s;
+        }
+        .menu-item:hover .menu-img { transform: scale(1.05); }
+
+        .item-details { padding: 25px 25px 15px; }
+        .item-details h3 { margin: 0; font-size: 1.35rem; font-weight: 700; color: #333; }
+        .item-details p { font-size: 0.9rem; color: var(--gray); margin: 12px 0; line-height: 1.6; height: 45px; overflow: hidden; }
 
         .price-and-control {
-            padding: 0 20px 20px;
+            padding: 0 25px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .price { font-weight: 700; color: var(--primary); font-size: 1.2rem; }
+        .price { font-weight: 700; color: var(--primary); font-size: 1.4rem; }
 
-        /* Quantity Controls */
+        /* --- Quantity Controls --- */
         .quantity-control {
             display: flex;
             align-items: center;
-            gap: 15px;
-            background: var(--primary-light);
-            padding: 6px 14px;
+            gap: 12px;
+            background: #f8f8f8;
+            padding: 8px 18px;
             border-radius: 50px;
+            border: 1px solid #eee;
         }
         .quantity-control button {
             background: white;
-            border: none;
-            width: 28px;
-            height: 28px;
+            border: 1px solid #ddd;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
             color: var(--primary);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .quantity-control button:hover { background: var(--primary); color: white; }
-        .quantity { font-weight: 700; min-width: 20px; text-align: center; color: var(--primary); }
+        .quantity-control button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .quantity { font-weight: 700; min-width: 25px; text-align: center; color: var(--dark); font-size: 1.1rem; }
 
-        /* Admin Item Controls */
+        /* --- Admin Controls --- */
         .admin-controls {
             padding: 15px;
             background: #fafafa;
@@ -142,52 +181,58 @@ include 'config.php';
             justify-content: space-around;
             border-top: 1px solid #eee;
         }
-        .btn-edit { color: #3498db; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
-        .btn-hapus { color: #e74c3c; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
+        .btn-edit { color: #3498db; text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; }
+        .btn-hapus { color: #e74c3c; text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; }
 
-        /* Floating Cart (Pindah ke Tengah Bawah) */
+        /* --- Floating Cart --- */
         #floating-cart {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--dark);
             color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
+            padding: 18px 35px;
+            border-radius: 100px;
             display: none;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             cursor: pointer;
-            transition: 0.3s;
-            min-width: 250px;
+            transition: all 0.3s ease;
+            min-width: 300px;
             justify-content: space-between;
         }
-        #floating-cart:hover { bottom: 35px; background: #000; }
-        #cart-item-count { background: var(--primary); color: white; padding: 2px 10px; border-radius: 10px; font-weight: bold; }
+        #floating-cart:hover { transform: translateX(-50%) translateY(-5px); background: #000; }
+        #cart-item-count { background: var(--primary); color: white; padding: 4px 12px; border-radius: 50px; font-weight: bold; font-size: 0.8rem; }
 
-        /* Popups */
-        .popup-content {
-            border-radius: 30px !important;
-            padding: 35px !important;
-            border: none !important;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2) !important;
-        }
-        .complete-btn {
-            background: var(--primary);
-            color: white;
+        /* CSS Popup Checkout (Tetap Bagus) */
+        #checkout-popup .popup-content {
+            background: #ffffff;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            padding: 35px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             border: none;
-            padding: 15px 30px;
-            border-radius: 15px;
-            font-weight: 700;
-            width: 100%;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
+            position: relative;
+            animation: scaleIn 0.3s ease-out;
         }
-        .complete-btn:hover { background: #e66e52; }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .popup-title { color: var(--primary); font-weight: 700; font-size: 1.6rem; margin-bottom: 25px; }
+        #popup-items { background: #fdfaf9; border: 1px solid #f0e6e4; border-radius: 20px; padding: 15px 20px; margin-bottom: 20px; max-height: 200px; overflow-y: auto; }
+        .popup-item-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
+        .total-price-area { font-size: 1.4rem; font-weight: 700; margin: 20px 0; }
+        .custom-select { width: 100%; padding: 14px; border-radius: 15px; border: 1px solid #ddd; margin-bottom: 25px; }
+        .complete-btn { background: var(--primary); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: 700; width: 100%; cursor: pointer; }
+        .close-popup-btn { background: none; border: none; color: #bbb; margin-top: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -195,8 +240,8 @@ include 'config.php';
     <?php if(isset($_SESSION['admin'])): ?>
     <div class="admin-fab-group">
         <a href="riwayat_pesanan.php" class="fab-admin special">📥 Pesanan Masuk</a>
-        <a href="tambah_menu.php" class="fab-admin">+ Tambah Menu</a>
-        <a href="logout.php" class="fab-admin" style="background: #e74c3c;">Logout</a>
+        <a href="tambah_menu.php" class="fab-admin">✨ Tambah Menu</a>
+        <a href="logout.php" class="fab-admin" style="background: #e74c3c;">🚪 Logout</a>
     </div>
     <?php endif; ?>
 
@@ -212,14 +257,20 @@ include 'config.php';
     </header>
 
     <section id="menu">
-        <h2>Menu Favorit</h2>
+        <div class="menu-title">
+            <h2>Daftar Menu Favorit</h2>
+            <p>Pilih minuman segar favoritmu untuk menemani hari-harimu!</p>
+        </div>
+
         <div class="menu-grid">
             <?php
             $query = mysqli_query($conn, "SELECT * FROM menu");
             while($row = mysqli_fetch_array($query)) :
             ?>
             <div class="menu-item" data-name="<?php echo $row['nama_menu']; ?>" data-price="<?php echo $row['harga']; ?>">
-                <img src="img/<?php echo $row['gambar']; ?>" alt="Menu" class="menu-img">
+                <div style="overflow:hidden">
+                    <img src="img/<?php echo $row['gambar']; ?>" alt="Menu" class="menu-img">
+                </div>
                 <div class="item-details"> 
                     <h3><?php echo $row['nama_menu']; ?></h3>
                     <p><?php echo $row['deskripsi']; ?></p>
@@ -238,8 +289,8 @@ include 'config.php';
 
                 <?php if(isset($_SESSION['admin'])): ?>
                 <div class="admin-controls">
-                    <a href="edit_menu.php?id=<?php echo $row['id']; ?>" class="btn-edit">EDIT</a>
-                    <a href="hapus.php?id=<?php echo $row['id']; ?>" class="btn-hapus" onclick="return confirm('Hapus menu ini?')">HAPUS</a>
+                    <a href="edit_menu.php?id=<?php echo $row['id']; ?>" class="btn-edit">✎ EDIT</a>
+                    <a href="hapus.php?id=<?php echo $row['id']; ?>" class="btn-hapus" onclick="return confirm('Hapus menu ini?')">🗑 HAPUS</a>
                 </div>
                 <?php endif; ?>
             </div>
@@ -247,37 +298,35 @@ include 'config.php';
         </div>
     </section>
 
-    <div id="checkout-popup" class="popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter: blur(5px); justify-content:center; align-items:center; z-index:9999;">
-        <div class="popup-content" style="background:white; width:90%; max-width:400px; text-align:center;">
-            <h3 style="margin-bottom:20px; color:var(--primary); font-size: 1.5rem;">Ringkasan Pesanan</h3>
-            <div id="popup-items" style="max-height:200px; overflow-y:auto; margin-bottom:20px; text-align:left; background: #f9f9f9; padding: 15px; border-radius: 15px;"></div> 
-            <p id="popup-total" style="font-weight:700; font-size:1.3rem; margin-bottom: 20px;">Total: Rp 0</p>
-
-            <div style="margin-bottom:20px; text-align:left;">
-                <label style="font-size:0.85rem; font-weight:600; color: #666;">Metode Pembayaran:</label>
-                <select id="payment-method" onchange="toggleQrisDisplay()" style="width:100%; padding:12px; border-radius:12px; border: 1px solid #ddd; margin-top: 8px; font-family: 'Poppins';">
+    <div id="checkout-popup" class="popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter: blur(8px); justify-content:center; align-items:center; z-index:9999; padding: 20px;">
+        <div class="popup-content">
+            <h3 class="popup-title">Konfirmasi Pesanan</h3>
+            <div id="popup-items"></div> 
+            <div class="total-price-area">
+                Total Akhir: <span id="popup-total" style="color: var(--primary);">Rp 0</span>
+            </div>
+            <div style="text-align:left;">
+                <label style="font-size: 0.8rem; font-weight:600; color:#888;">METODE PEMBAYARAN</label>
+                <select id="payment-method" onchange="toggleQrisDisplay()" class="custom-select">
                     <option value="cod">💵 Bayar di Tempat (COD)</option>
                     <option value="qris">📱 QRIS / E-Wallet</option>
                 </select>
             </div>
-
-            <div id="qris-area" style="display:none; margin-bottom:20px; padding: 15px; border: 1px dashed var(--primary); border-radius: 15px;">
-                <p style="font-size:0.7rem; color:gray; margin-bottom: 10px;">Scan QRIS Indo Ice Tea:</p>
-                <img src="img/qris.jpg" style="width:160px; border-radius: 10px;">
+            <div id="qris-area" style="display:none; margin-bottom:25px;">
+                <img src="img/qris.jpg" style="width:180px; border-radius: 10px;">
             </div>
-
-            <button onclick="completeCheckout()" class="complete-btn">Selesaikan Pesanan</button>
-            <button onclick="closeCheckoutPopup()" style="background:none; border:none; color:#bbb; margin-top:15px; cursor:pointer; font-weight:600;">Kembali</button>
+            <button onclick="completeCheckout()" class="complete-btn">Pesan Sekarang</button>
+            <button onclick="closeCheckoutPopup()" class="close-popup-btn">Tutup & Edit</button>
         </div>
     </div>
 
     <div id="floating-cart" onclick="showCheckoutPopup()">
-        <div style="display:flex; align-items:center; gap:12px;">
+        <div style="display:flex; align-items:center; gap:15px;">
             <span id="cart-item-count">0</span>
-            <span style="font-size: 1.2rem;">🛒</span>
-            <span style="font-weight: 600;">Lihat Keranjang</span>
+            <span style="font-size: 1.3rem;">🛒</span>
+            <span style="font-weight: 500; font-size: 0.95rem;">Keranjang Belanja</span>
         </div>
-        <span id="floating-cart-total">Rp 0</span>
+        <span id="floating-cart-total" style="font-weight: 700; color: var(--primary);">Rp 0</span>
     </div>
 
     <script src="js/script.js"></script>
