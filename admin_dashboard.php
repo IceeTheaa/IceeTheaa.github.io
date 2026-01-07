@@ -3,7 +3,7 @@ session_start();
 include 'config.php';
 
 // Cek Login Admin
-if (!isset($_SESSION['login'])) {
+if (!isset($_SESSION['admin'])) {
     header("Location: login.php");
     exit;
 }
