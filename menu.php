@@ -239,7 +239,9 @@ include 'config.php';
 
     <?php if(isset($_SESSION['admin'])): ?>
     <div class="admin-fab-group">
-        <a href="admin_dashboard.php" class="fab-admin special">🚀 Dashboard Admin</a>
+        <a href="admin_dashboard.php" class="fab-admin" style="background: #3498db;">
+            🚀 Dashboard
+        </a>
         <a href="riwayat_pesanan.php" class="fab-admin special">📥 Pesanan Masuk</a>
         <a href="tambah_menu.php" class="fab-admin">✨ Tambah Menu</a>
         <a href="logout.php" class="fab-admin" style="background: #e74c3c;">🚪 Logout</a>
