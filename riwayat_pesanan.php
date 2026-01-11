@@ -186,7 +186,7 @@ $total_pendapatan = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_har
 
     <nav class="nav-header">
         <h2 style="margin:0;">🍹 Indo Ice Tea <span style="font-weight:300; font-size:16px;">| Admin Panel</span></h2>
-        <a href="menu.php" class="btn-back">← Dashboard Menu</a>
+        <a href="admin_dashboard.php" class="btn-back">← Dashboard Menu</a>
     </nav>
 
     <div class="container">

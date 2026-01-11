@@ -94,7 +94,7 @@ function showCheckoutPopup() {
     if (total === 0) return alert('Keranjang kosong!');
 
     popupItemsContainer.innerHTML = orderListHTML;
-    popupTotalElement.textContent = `Total Akhir: ${formatRupiah(total)}`;
+    popupTotalElement.textContent = formatRupiah(total);
     popup.style.display = 'flex';
 }
 
