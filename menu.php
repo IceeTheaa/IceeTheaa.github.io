@@ -242,7 +242,6 @@ include 'config.php';
         <a href="admin_dashboard.php" class="fab-admin" style="background: #3498db;">
             🚀 Dashboard
         </a>
-        <a href="riwayat_pesanan.php" class="fab-admin special">📥 Pesanan Masuk</a>
         <a href="tambah_menu.php" class="fab-admin">✨ Tambah Menu</a>
         <a href="logout.php" class="fab-admin" style="background: #e74c3c;">🚪 Logout</a>
     </div>

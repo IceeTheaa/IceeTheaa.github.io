@@ -7,17 +7,64 @@ if(!isset($_SESSION['admin'])) {
     exit; 
 }
 
+// --- LOGIKA UPDATE STATUS & KOREKSI DATA (PENTING) ---
 if(isset($_POST['update_status'])) {
     $id = $_POST['order_id'];
     $status_baru = $_POST['status_baru'];
+
+    // 1. Cek Data Status LAMA dulu sebelum diubah
+    $cek_query = mysqli_query($conn, "SELECT status_pesanan, detail_pesanan FROM pesanan WHERE id = '$id'");
+    $data_lama = mysqli_fetch_assoc($cek_query);
+    $status_lama = $data_lama['status_pesanan'];
+    $detail_pesanan = $data_lama['detail_pesanan']; // Contoh: "Milk Tea (1x), "
+
+    // 2. Update Status ke Database
     mysqli_query($conn, "UPDATE pesanan SET status_pesanan = '$status_baru' WHERE id = '$id'");
+
+    // 3. LOGIKA KOREKSI 'TERJUAL' & 'STOK'
+    // Kita pecah text detail pesanan untuk tahu menu apa saja yang harus dikoreksi
+    $items = explode(", ", $detail_pesanan); 
+
+    foreach($items as $item) {
+        // Ambil Nama & Qty pakai Regex. Contoh: "Milk Tea (2x)" -> Nama: Milk Tea, Qty: 2
+        if(preg_match('/^(.*?) \((\d+)x\)$/', trim($item), $matches)) {
+            $nama_menu = trim($matches[1]);
+            $qty = (int) $matches[2];
+
+            // A. KASUS: Dibatalkan / Di-reset (Selesai -> Batal/Baru)
+            // Kurangi angka 'terjual' agar tren turun lagi
+            if($status_lama == 'Selesai' && $status_baru != 'Selesai') {
+                mysqli_query($conn, "UPDATE menu SET terjual = terjual - $qty WHERE nama_menu = '$nama_menu'");
+            }
+            
+            // B. KASUS: Pesanan Selesai (Baru/Batal -> Selesai)
+            // Tambah angka 'terjual' agar tren naik
+            elseif($status_baru == 'Selesai' && $status_lama != 'Selesai') {
+                mysqli_query($conn, "UPDATE menu SET terjual = terjual + $qty WHERE nama_menu = '$nama_menu'");
+            }
+
+            // C. KASUS: Restock Barang (Baru/Selesai -> Batal)
+            // Kembalikan stok ke gudang karena batal beli
+            if($status_baru == 'Batal' && $status_lama != 'Batal') {
+                mysqli_query($conn, "UPDATE menu SET stok = stok + $qty WHERE nama_menu = '$nama_menu'");
+            }
+            // (Opsional) Jika Admin salah pencet Batal lalu balik ke Baru -> Stok ditarik lagi
+            elseif($status_lama == 'Batal' && $status_baru != 'Batal') {
+                mysqli_query($conn, "UPDATE menu SET stok = stok - $qty WHERE nama_menu = '$nama_menu'");
+            }
+        }
+    }
+
     header("Location: riwayat_pesanan.php");
 }
 
 // Ambil statistik sederhana
 $total_pesanan = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM pesanan"));
-$total_pendapatan = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_harga) as total FROM pesanan WHERE status_pesanan = 'Selesai'"))['total'];
+$q_pendapatan = mysqli_query($conn, "SELECT SUM(total_harga) as total FROM pesanan WHERE status_pesanan = 'Selesai'");
+$d_pendapatan = mysqli_fetch_assoc($q_pendapatan);
+$total_pendapatan = $d_pendapatan['total'] ? $d_pendapatan['total'] : 0;
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -27,166 +74,54 @@ $total_pendapatan = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_har
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #ff7e5f;
-            --secondary: #feb47b;
-            --dark: #2d3436;
-            --light: #f8f9fa;
-            --success: #27ae60;
-            --danger: #eb4d4b;
-            --warning: #f1c40f;
+            --primary: #ff7e5f; --secondary: #feb47b; --dark: #2d3436; --light: #f8f9fa;
+            --success: #27ae60; --danger: #eb4d4b; --warning: #f1c40f;
         }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            color: var(--dark);
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: #f0f2f5; margin: 0; color: var(--dark); }
 
         /* Navbar Style */
-        .nav-header {
-            background: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .container {
-            padding: 30px 5%;
-            max-width: 1300px;
-            margin: auto;
-        }
+        .nav-header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .container { padding: 30px 5%; max-width: 1300px; margin: auto; }
 
         /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--primary);
-        }
-
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--primary); }
         .stat-card hsmall { font-size: 12px; color: #888; text-transform: uppercase; }
         .stat-card h3 { margin: 5px 0 0 0; font-size: 20px; }
 
         /* Table Card */
-        .table-card {
-            background: white;
-            border-radius: 20px;
-            padding: 0;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-
-        .table-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #fafafa;
-            color: #888;
-            padding: 15px 25px;
-            text-align: left;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        td {
-            padding: 20px 25px;
-            border-bottom: 1px solid #f8f8f8;
-            font-size: 14px;
-        }
-
+        .table-card { background: white; border-radius: 20px; padding: 0; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); overflow: hidden; }
+        .table-header { padding: 20px 25px; border-bottom: 1px solid #eee; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #fafafa; color: #888; padding: 15px 25px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 20px 25px; border-bottom: 1px solid #f8f8f8; font-size: 14px; }
         tr:hover { background-color: #fffaf9; }
 
-        /* Status Badges Custom */
-        .badge {
-            padding: 6px 15px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
+        /* Status Badges */
+        .badge { padding: 6px 15px; border-radius: 8px; font-size: 12px; font-weight: 600; display: inline-block; }
         .status-baru { background: #fff4e5; color: #ff9800; }
         .status-selesai { background: #e7f7ed; color: #2ecc71; }
         .status-batal { background: #ffeaea; color: #e74c3c; }
 
         /* Action UI */
-        select {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-family: inherit;
-            background: #f9f9f9;
-        }
-
-        .btn-update {
-            background: var(--dark);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
+        select { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; font-family: inherit; background: #f9f9f9; }
+        .btn-update { background: var(--dark); color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 8px; font-weight: 500; transition: 0.3s; }
         .btn-update:hover { background: var(--primary); }
-
-        .btn-back {
-            text-decoration: none;
-            color: #666;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        .btn-back { text-decoration: none; color: #666; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
         .btn-back:hover { color: var(--primary); }
+        .order-items { font-size: 13px; color: #555; background: #fdfdfd; padding: 10px; border-radius: 8px; border-left: 3px solid #eee; }
 
-        .order-items {
-            font-size: 13px;
-            color: #555;
-            background: #fdfdfd;
-            padding: 10px;
-            border-radius: 8px;
-            border-left: 3px solid #eee;
-        }
-
-        @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .nav-header h2 { font-size: 18px; }
-        }
+        @media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr 1fr; } .nav-header h2 { font-size: 18px; } }
     </style>
 </head>
 <body>
 
     <nav class="nav-header">
         <h2 style="margin:0;">🍹 Indo Ice Tea <span style="font-weight:300; font-size:16px;">| Admin Panel</span></h2>
-        <a href="admin_dashboard.php" class="btn-back">← Dashboard Menu</a>
+        <div style="display:flex; gap:15px; align-items:center;">
+            <a href="admin_dashboard.php" class="btn-back">📊 Dashboard</a>
+            <a href="menu.php" class="btn-back">🏠 Kembali ke Menu</a>
+        </div>
     </nav>
 
     <div class="container">
@@ -259,7 +194,7 @@ $total_pendapatan = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_har
                                         <option value="Selesai" <?php if($status == 'Selesai') echo 'selected'; ?>>Selesai</option>
                                         <option value="Batal" <?php if($status == 'Batal') echo 'selected'; ?>>Batal</option>
                                     </select>
-                                    <button type="submit" name="update_status" class="btn-update">✓</button>
+                                    <button type="submit" name="update_status" class="btn-update" title="Simpan Perubahan">✓</button>
                                 </form>
                             </td>
                         </tr>
