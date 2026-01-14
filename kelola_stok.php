@@ -25,7 +25,7 @@ if (isset($_POST['update_stok'])) {
         :root { --primary: #ff7e5f; --sidebar-width: 250px; }
         body { font-family: 'Poppins', sans-serif; background: #f4f7f6; margin: 0; display: flex; }
         
-        /* Copy style sidebar dari admin_dashboard.php */
+        /* Sidebar Style */
         .sidebar { width: var(--sidebar-width); background: white; height: 100vh; position: fixed; padding: 20px; display: flex; flex-direction: column; border-right: 1px solid #eee; }
         .sidebar h2 { color: var(--primary); font-size: 1.4rem; margin-bottom: 40px; }
         .menu-link { text-decoration: none; color: #777; padding: 12px 15px; margin-bottom: 10px; border-radius: 10px; display: flex; align-items: center; gap: 15px; transition: 0.3s; }
@@ -37,14 +37,45 @@ if (isset($_POST['update_stok'])) {
         /* Table Styles */
         .table-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 15px; color: #888; border-bottom: 2px solid #eee; }
+        th { text-align: left; padding: 15px; color: #888; border-bottom: 2px solid #eee; font-size: 0.9rem; text-transform: uppercase; }
         td { padding: 15px; border-bottom: 1px solid #f9f9f9; vertical-align: middle; }
         
-        .input-stok { 
-            width: 60px; padding: 8px; border-radius: 8px; border: 1px solid #ddd; text-align: center; font-weight: bold;
+        /* 1. AGAR GAMBAR SAMA RATA (PERSEGI & RAPI) */
+        .table-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover; /* Memastikan gambar tidak gepeng */
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .btn-update { background: var(--primary); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; }
-        .btn-update:hover { background: #e66e52; }
+
+        .input-stok { 
+            width: 70px; padding: 8px; border-radius: 8px; border: 1px solid #ddd; text-align: center; font-weight: bold; font-family: inherit;
+        }
+
+        /* 2. STYLE TOMBOL ICON */
+        .btn-icon {
+            border: none;
+            background: transparent;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        /* Warna tombol Simpan (Hijau) */
+        .btn-save { color: #27ae60; background: #eafaf1; }
+        .btn-save:hover { background: #27ae60; color: white; transform: scale(1.1); }
+
+        /* Warna tombol Hapus (Merah) */
+        .btn-delete { color: #e74c3c; background: #fdeded; margin-left: 5px; }
+        .btn-delete:hover { background: #e74c3c; color: white; transform: scale(1.1); }
+
     </style>
 </head>
 <body>
@@ -60,13 +91,13 @@ if (isset($_POST['update_stok'])) {
 
     <div class="main-content">
         <h1>📦 Manajemen Stok Barang</h1>
-        <p>Update jumlah stok secara real-time di sini.</p>
+        <p>Atur stok dan hapus menu yang tidak tersedia.</p>
 
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th>Gambar</th>
+                        <th width="100">Gambar</th>
                         <th>Nama Menu</th>
                         <th>Harga</th>
                         <th>Sisa Stok</th>
@@ -77,11 +108,15 @@ if (isset($_POST['update_stok'])) {
                     <?php
                     $query = mysqli_query($conn, "SELECT * FROM menu ORDER BY stok ASC");
                     while($row = mysqli_fetch_array($query)) :
-                        $stok_alert = ($row['stok'] < 10) ? 'color:red; background:#ffeaea;' : '';
+                        // Alert merah jika stok kurang dari 10
+                        $stok_alert = ($row['stok'] < 10) ? 'color:#e74c3c; border-color:#e74c3c; background:#fff5f5;' : '';
                     ?>
                     <tr>
-                        <td><img src="img/<?php echo $row['gambar']; ?>" width="50" style="border-radius:10px;"></td>
-                        <td><?php echo $row['nama_menu']; ?></td>
+                        <td>
+                            <img src="img/<?php echo $row['gambar']; ?>" class="table-img" alt="Menu">
+                        </td>
+                        
+                        <td style="font-weight: 600;"><?php echo $row['nama_menu']; ?></td>
                         <td>Rp <?php echo number_format($row['harga']); ?></td>
                         
                         <form method="POST">
@@ -90,7 +125,13 @@ if (isset($_POST['update_stok'])) {
                                 <input type="number" name="stok" class="input-stok" value="<?php echo $row['stok']; ?>" style="<?php echo $stok_alert; ?>">
                             </td>
                             <td>
-                                <button type="submit" name="update_stok" class="btn-update">Update</button>
+                                <button type="submit" name="update_stok" class="btn-icon btn-save" title="Simpan Perubahan Stok">
+                                    <i class="fas fa-save"></i>
+                                </button>
+
+                                <a href="hapus.php?id=<?php echo $row['id']; ?>" class="btn-icon btn-delete" onclick="return confirm('Yakin ingin menghapus menu ini selamanya?')" title="Hapus Menu">
+                                    <i class="fas fa-trash"></i>
+                                </a>
                             </td>
                         </form>
                     </tr>
